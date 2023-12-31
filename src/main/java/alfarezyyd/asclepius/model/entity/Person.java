@@ -20,7 +20,7 @@ public class Person {
   @Column(name = "people_id")
   private Long peopleId;
   private String identityCardNumber;
-  private String identityCardNumberType;
+  private String identityCardType;
   private String fullName;
   private String email;
   private String gender;

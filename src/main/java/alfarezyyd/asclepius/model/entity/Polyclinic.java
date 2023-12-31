@@ -14,7 +14,7 @@ import java.util.List;
 @Setter
 @EqualsAndHashCode
 @NoArgsConstructor
-public class Polyclinics {
+public class Polyclinic {
   @Id
   private String code;
   private String name;

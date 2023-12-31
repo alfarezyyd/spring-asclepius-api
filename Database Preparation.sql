@@ -16,19 +16,19 @@ CREATE TABLE addresses
 
 CREATE TABLE people
 (
-    people_id                        BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT                                                                                                             NOT NULL,
+    people_id                 BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT                                                                                                             NOT NULL,
     address_id                BIGINT UNSIGNED UNIQUE                                                                                                                                 NOT NULL,
     identity_card_number      VARCHAR(20) UNIQUE                                                                                                                                     NOT NULL,
-    identity_card_number_type ENUM ('Identity Card', 'Driving License')                                                                                                              NOT NULL,
+    identity_card_type ENUM ('Identity Card', 'Driving License')                                                                                                              NOT NULL,
     full_name                 VARCHAR(50)                                                                                                                                            NOT NULL,
     email                     VARCHAR(100) UNIQUE                                                                                                                                    NOT NULL,
     gender                    ENUM ('Man', 'Woman')                                                                                                                                  NOT NULL,
     religion                  ENUM ('Muslim', 'Christian', 'Hindu', 'Buddhist', 'Kong Hu Chu')                                                                                       NOT NULL,
-    blood_type                ENUM ('A', 'B', 'C', 'AB')                                                                                                                             NOT NULL,
+    blood_type                ENUM ('A', 'B', 'O', 'AB')                                                                                                                             NOT NULL,
     birth_place               VARCHAR(50)                                                                                                                                            NOT NULL,
     birth_date                DATE                                                                                                                                                   NOT NULL,
     age                       TINYINT UNSIGNED                                                                                                                                       NOT NULL,
-    marital_status            ENUM ('Married', 'Not Married')                                                                                                                        NOT NULL,
+    marital_status            ENUM ('Married', 'Not Married Yet')                                                                                                                        NOT NULL,
     last_education            ENUM ('Elementary School', 'Junior High School', 'Senior/Vocational High School', 'Diploma 3', 'Bachelor Degree', 'Associate Degree', 'Master Degree') NOT NULL,
     telephone_number          VARCHAR(15),
     CONSTRAINT fk_people_addresses FOREIGN KEY (address_id) REFERENCES addresses (id)
@@ -55,7 +55,7 @@ CREATE TABLE polyclinics
 CREATE TABLE specialities
 (
     code VARCHAR(16) PRIMARY KEY NOT NULL,
-    name VARCHAR(255)            NOT NULL,
+    name VARCHAR(100)            NOT NULL,
     note TEXT
 );
 

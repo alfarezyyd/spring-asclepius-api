@@ -22,5 +22,5 @@ public class Doctor extends Person {
   @ManyToMany(mappedBy = "doctors")
   private List<Speciality> specialities;
   @ManyToMany(mappedBy = "doctors")
-  private List<Polyclinics> polyclinics;
+  private List<Polyclinic> polyclinics;
 }

@@ -32,7 +32,7 @@ public class Patient extends Person {
   @ManyToMany(mappedBy = "patients")
   private List<Insurance> insurances;
   @ManyToMany(mappedBy = "patients")
-  private List<Languages> languages;
+  private List<Language> languages;
   @ManyToOne
   @JoinColumn(name = "custodian_id", referencedColumnName = "people_id")
   private Custodian custodian;

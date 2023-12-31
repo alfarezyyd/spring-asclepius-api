@@ -14,7 +14,7 @@ import java.util.List;
 @Setter
 @EqualsAndHashCode
 @NoArgsConstructor
-public class Languages {
+public class Language {
   @Id
   private Long id;
   private String name;
