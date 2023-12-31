@@ -1,7 +1,6 @@
 package alfarezyyd.asclepius.model.dto.address;
 
 public interface AddressDto {
-
   String getUrbanVillageName();
 
   String getSubDistrictName();

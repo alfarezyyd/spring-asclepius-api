@@ -1,6 +1,5 @@
 package alfarezyyd.asclepius.helper;
 
-import alfarezyyd.asclepius.model.dto.address.AddressDto;
 import alfarezyyd.asclepius.model.dto.address.AddressResponse;
 import alfarezyyd.asclepius.model.dto.doctor.DoctorResponse;
 import alfarezyyd.asclepius.model.dto.person.PersonResponse;
@@ -28,16 +27,6 @@ public class Model {
     addressResponse.setPostalCode(addressEntity.getPostalCode());
     addressResponse.setPerson(personResponse);
     return addressResponse;
-  }
-
-  public static Address constructAddressEntity(Address addressEntity, AddressDto addressDto) {
-    addressEntity.setUrbanVillageName(addressDto.getUrbanVillageName());
-    addressEntity.setDistrictName(addressDto.getDistrictName());
-    addressEntity.setProvinceName(addressDto.getProvinceName());
-    addressEntity.setNeighbourhoodNumber(addressDto.getNeighbourhoodNumber());
-    addressEntity.setHamletNumber(addressDto.getHamletNumber());
-    addressEntity.setPostalCode(addressDto.getPostalCode());
-    return addressEntity;
   }
 
   public static PolyclinicResponse convertIntoPolyclinicResponse(List<DoctorResponse> doctorsResponses, Polyclinic polyclinicEntity) {
