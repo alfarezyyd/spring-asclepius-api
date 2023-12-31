@@ -1,5 +1,6 @@
 package alfarezyyd.asclepius.model.dto.address;
 
+import alfarezyyd.asclepius.model.dto.person.PersonResponse;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,4 +23,5 @@ public class AddressResponse {
   private String hamletNumber;
   @JsonProperty("postal_code")
   private String postalCode;
+  private PersonResponse person;
 }

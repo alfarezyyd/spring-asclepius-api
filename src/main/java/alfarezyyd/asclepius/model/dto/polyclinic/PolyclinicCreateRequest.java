@@ -1,4 +1,4 @@
-package alfarezyyd.asclepius.model.dto.polyclinicis;
+package alfarezyyd.asclepius.model.dto.polyclinic;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -17,5 +17,4 @@ public class PolyclinicCreateRequest {
   @NotBlank
   @Size(min = 1, max = 50)
   private String location;
-  private String text;
 }

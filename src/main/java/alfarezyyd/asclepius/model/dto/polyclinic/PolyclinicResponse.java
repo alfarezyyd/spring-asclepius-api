@@ -1,6 +1,6 @@
-package alfarezyyd.asclepius.model.dto.polyclinicis;
+package alfarezyyd.asclepius.model.dto.polyclinic;
 
-import alfarezyyd.asclepius.model.entity.Doctor;
+import alfarezyyd.asclepius.model.dto.doctor.DoctorResponse;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,5 +12,5 @@ public class PolyclinicResponse {
   private String code;
   private String name;
   private String location;
-  private List<Doctor> doctors;
+  private List<DoctorResponse> doctors;
 }

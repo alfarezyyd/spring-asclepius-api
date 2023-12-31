@@ -1,4 +1,4 @@
-package alfarezyyd.asclepius.model.dto.polyclinicis;
+package alfarezyyd.asclepius.model.dto.polyclinic;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;

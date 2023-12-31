@@ -1,9 +1,15 @@
 package alfarezyyd.asclepius.usecase;
 
+import alfarezyyd.asclepius.model.dto.doctor.DoctorCreateRequest;
+import alfarezyyd.asclepius.model.dto.doctor.DoctorResponse;
+import alfarezyyd.asclepius.model.dto.doctor.DoctorUpdateRequest;
+
+import java.util.List;
+
 public interface DoctorUsecase {
-  void findAll();
-  void findById();
-  void create();
-  void update();
-  void delete();
+  List<DoctorResponse> findAll();
+  DoctorResponse findById(Long doctorId);
+  void create(DoctorCreateRequest doctorCreateRequest);
+  void update(DoctorUpdateRequest doctorUpdateRequest);
+  void delete(Long doctorId);
 }
