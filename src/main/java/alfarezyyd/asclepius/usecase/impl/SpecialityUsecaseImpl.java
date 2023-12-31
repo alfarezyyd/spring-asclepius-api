@@ -1,6 +1,6 @@
 package alfarezyyd.asclepius.usecase.impl;
 
-import alfarezyyd.asclepius.helper.Model;
+import alfarezyyd.asclepius.mapper.SpecialityMapper;
 import alfarezyyd.asclepius.model.dto.speciality.SpecialityCreateRequest;
 import alfarezyyd.asclepius.model.dto.speciality.SpecialityResponse;
 import alfarezyyd.asclepius.model.dto.speciality.SpecialityUpdateRequest;
@@ -18,10 +18,12 @@ import java.util.List;
 public class SpecialityUsecaseImpl implements SpecialityUsecase {
   private final SpecialityRepository specialityRepository;
   private final ValidationUtil validationUtil;
+  private final SpecialityMapper specialityMapper;
 
-  public SpecialityUsecaseImpl(SpecialityRepository specialityRepository, ValidationUtil validationUtil) {
+  public SpecialityUsecaseImpl(SpecialityRepository specialityRepository, ValidationUtil validationUtil, SpecialityMapper specialityMapper) {
     this.specialityRepository = specialityRepository;
     this.validationUtil = validationUtil;
+    this.specialityMapper = specialityMapper;
   }
 
   @Override
@@ -39,9 +41,7 @@ public class SpecialityUsecaseImpl implements SpecialityUsecase {
   public void create(SpecialityCreateRequest specialityCreateRequest) {
     validationUtil.validateRequest(specialityCreateRequest);
     Speciality speciality = new Speciality();
-    speciality.setCode(specialityCreateRequest.getCode());
-    speciality.setName(specialityCreateRequest.getName());
-    speciality.setText(specialityCreateRequest.getText());
+    specialityMapper.specialityDtoIntoSpecialityEntity(speciality, specialityCreateRequest);
     specialityRepository.save(speciality);
   }
 
@@ -49,8 +49,7 @@ public class SpecialityUsecaseImpl implements SpecialityUsecase {
   public void update(SpecialityUpdateRequest specialityUpdateRequest) {
     validationUtil.validateRequest(specialityUpdateRequest);
     Speciality searchedSpeciality = specialityRepository.findById(specialityUpdateRequest.getCode()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "speciality not found"));
-    searchedSpeciality.setName(specialityUpdateRequest.getName());
-    searchedSpeciality.setText(specialityUpdateRequest.getText());
+    specialityMapper.specialityDtoIntoSpecialityEntity(searchedSpeciality, specialityUpdateRequest);
     specialityRepository.save(searchedSpeciality);
   }
 
@@ -58,7 +57,7 @@ public class SpecialityUsecaseImpl implements SpecialityUsecase {
   public void delete(String specialityId) {
     if (specialityRepository.existsById(specialityId)) {
       specialityRepository.deleteById(specialityId);
-    }else{
+    } else {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND, "speciality not found");
     }
   }

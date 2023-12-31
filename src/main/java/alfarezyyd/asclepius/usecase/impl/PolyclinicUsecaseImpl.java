@@ -1,6 +1,6 @@
 package alfarezyyd.asclepius.usecase.impl;
 
-import alfarezyyd.asclepius.helper.Model;
+import alfarezyyd.asclepius.mapper.PolyclinicMapper;
 import alfarezyyd.asclepius.model.dto.polyclinic.PolyclinicCreateRequest;
 import alfarezyyd.asclepius.model.dto.polyclinic.PolyclinicResponse;
 import alfarezyyd.asclepius.model.dto.polyclinic.PolyclinicUpdateRequest;
@@ -18,31 +18,31 @@ import java.util.List;
 public class PolyclinicUsecaseImpl implements PolyclinicUsecase {
   private final PolyclinicRepository polyclinicRepository;
   private final ValidationUtil validationUtil;
+  private final PolyclinicMapper polyclinicMapper;
 
-  public PolyclinicUsecaseImpl(PolyclinicRepository polyclinicRepository, ValidationUtil validationUtil) {
+  public PolyclinicUsecaseImpl(PolyclinicRepository polyclinicRepository, ValidationUtil validationUtil, PolyclinicMapper polyclinicMapper) {
     this.polyclinicRepository = polyclinicRepository;
     this.validationUtil = validationUtil;
+    this.polyclinicMapper = polyclinicMapper;
   }
 
   @Override
   public List<PolyclinicResponse> findAll() {
     List<Polyclinic> allPolyclinic = polyclinicRepository.findAll();
-    return allPolyclinic.stream().map(polyclinic -> Model.convertIntoPolyclinicResponse(null, polyclinic)).toList();
+    return allPolyclinic.stream().map(polyclinicMapper::polyclinicEntityIntoPolyclinicResponse).toList();
   }
 
   @Override
   public PolyclinicResponse findById(String polyclinicId) {
     Polyclinic polyclinic = polyclinicRepository.findById(polyclinicId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "polyclinic not found"));
-    return Model.convertIntoPolyclinicResponse(null, polyclinic);
+    return polyclinicMapper.polyclinicEntityIntoPolyclinicResponse(polyclinic);
   }
 
   @Override
   public void create(PolyclinicCreateRequest polyclinicCreateRequest) {
     validationUtil.validateRequest(polyclinicCreateRequest);
     Polyclinic polyclinicEntity = new Polyclinic();
-    polyclinicEntity.setCode(polyclinicCreateRequest.getCode());
-    polyclinicEntity.setName(polyclinicCreateRequest.getName());
-    polyclinicEntity.setLocation(polyclinicCreateRequest.getLocation());
+    polyclinicMapper.polyclinicDtoIntoPolyclinicEntity(polyclinicEntity, polyclinicCreateRequest);
     polyclinicRepository.save(polyclinicEntity);
   }
 
@@ -50,9 +50,7 @@ public class PolyclinicUsecaseImpl implements PolyclinicUsecase {
   public void update(PolyclinicUpdateRequest polyclinicUpdateRequest) {
     validationUtil.validateRequest(polyclinicUpdateRequest);
     Polyclinic searchedPolyclinic = polyclinicRepository.findById(polyclinicUpdateRequest.getCode()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "polyclinic not found"));
-    searchedPolyclinic.setCode(polyclinicUpdateRequest.getCode());
-    searchedPolyclinic.setName(polyclinicUpdateRequest.getName());
-    searchedPolyclinic.setLocation(polyclinicUpdateRequest.getLocation());
+    polyclinicMapper.polyclinicDtoIntoPolyclinicEntity(searchedPolyclinic, polyclinicUpdateRequest);
     polyclinicRepository.save(searchedPolyclinic);
   }
 

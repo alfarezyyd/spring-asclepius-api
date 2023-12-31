@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class SpecialityCreateRequest {
+public class SpecialityCreateRequest implements SpecialityDto{
   @NotBlank
   @Size(min = 1, max = 16)
   private String code;

@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class PolyclinicCreateRequest {
+public class PolyclinicCreateRequest implements PolyclinicDto{
   @NotBlank
   @Size(min = 1, max = 16)
   private String code;
