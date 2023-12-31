@@ -1,11 +1,14 @@
 package alfarezyyd.asclepius.helper;
 
+import alfarezyyd.asclepius.model.dto.address.AddressDto;
 import alfarezyyd.asclepius.model.dto.address.AddressResponse;
 import alfarezyyd.asclepius.model.dto.doctor.DoctorResponse;
 import alfarezyyd.asclepius.model.dto.person.PersonResponse;
 import alfarezyyd.asclepius.model.dto.polyclinic.PolyclinicResponse;
+import alfarezyyd.asclepius.model.dto.speciality.SpecialityResponse;
 import alfarezyyd.asclepius.model.entity.Address;
 import alfarezyyd.asclepius.model.entity.Polyclinic;
+import alfarezyyd.asclepius.model.entity.Speciality;
 
 import java.util.List;
 
@@ -27,6 +30,16 @@ public class Model {
     return addressResponse;
   }
 
+  public static Address constructAddressEntity(Address addressEntity, AddressDto addressDto) {
+    addressEntity.setUrbanVillageName(addressDto.getUrbanVillageName());
+    addressEntity.setDistrictName(addressDto.getDistrictName());
+    addressEntity.setProvinceName(addressDto.getProvinceName());
+    addressEntity.setNeighbourhoodNumber(addressDto.getNeighbourhoodNumber());
+    addressEntity.setHamletNumber(addressDto.getHamletNumber());
+    addressEntity.setPostalCode(addressDto.getPostalCode());
+    return addressEntity;
+  }
+
   public static PolyclinicResponse convertIntoPolyclinicResponse(List<DoctorResponse> doctorsResponses, Polyclinic polyclinicEntity) {
     PolyclinicResponse polyclinicResponse = new PolyclinicResponse();
     polyclinicResponse.setCode(polyclinicEntity.getCode());
@@ -35,4 +48,14 @@ public class Model {
     polyclinicResponse.setDoctors(doctorsResponses);
     return polyclinicResponse;
   }
+
+  public static SpecialityResponse convertIntoSpecialityResponse(List<DoctorResponse> doctorsResponse, Speciality specialityEntity) {
+    SpecialityResponse specialityResponse = new SpecialityResponse();
+    specialityResponse.setCode(specialityEntity.getCode());
+    specialityResponse.setName(specialityEntity.getName());
+    specialityResponse.setText(specialityEntity.getText());
+    specialityResponse.setDoctors(doctorsResponse);
+    return specialityResponse;
+  }
+
 }

@@ -8,7 +8,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AddressCreateRequest {
+public class AddressCreateRequest implements AddressDto{
   @JsonProperty("urban_village_name")
   @NotBlank
   @Size(min = 1, max = 100)

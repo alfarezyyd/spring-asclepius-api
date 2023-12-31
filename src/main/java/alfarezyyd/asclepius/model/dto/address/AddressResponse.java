@@ -24,4 +24,5 @@ public class AddressResponse {
   @JsonProperty("postal_code")
   private String postalCode;
   private PersonResponse person;
+
 }

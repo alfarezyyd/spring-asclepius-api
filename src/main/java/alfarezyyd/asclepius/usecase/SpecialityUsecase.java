@@ -1,18 +1,19 @@
 package alfarezyyd.asclepius.usecase;
 
 import alfarezyyd.asclepius.model.dto.speciality.SpecialityCreateRequest;
+import alfarezyyd.asclepius.model.dto.speciality.SpecialityResponse;
 import alfarezyyd.asclepius.model.dto.speciality.SpecialityUpdateRequest;
 
 import java.util.List;
 
 public interface SpecialityUsecase {
-  List<SpecialityUsecase> findAll();
+  List<SpecialityResponse> findAll();
 
-  SpecialityUsecase findById(Long specialityId);
+  SpecialityResponse findById(String specialityId);
 
   void create(SpecialityCreateRequest specialityCreateRequest);
 
   void update(SpecialityUpdateRequest specialityUpdateRequest);
 
-  void delete(Long specialityId);
+  void delete(String specialityId);
 }

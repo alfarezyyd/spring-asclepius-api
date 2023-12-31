@@ -5,7 +5,6 @@ import alfarezyyd.asclepius.model.dto.address.AddressCreateRequest;
 import alfarezyyd.asclepius.model.dto.address.AddressResponse;
 import alfarezyyd.asclepius.model.dto.address.AddressUpdateRequest;
 import alfarezyyd.asclepius.model.entity.Address;
-import alfarezyyd.asclepius.model.entity.Person;
 import alfarezyyd.asclepius.repository.AddressRepository;
 import alfarezyyd.asclepius.usecase.AddressUsecase;
 import alfarezyyd.asclepius.util.ValidationUtil;
@@ -38,30 +37,16 @@ public class AddressUsecaseImpl implements AddressUsecase {
   }
 
   @Override
-  public void create(Person personEntity, AddressCreateRequest addressCreateRequest) {
+  public void create(AddressCreateRequest addressCreateRequest) {
     validationUtil.validateRequest(addressCreateRequest);
-    Address addressEntity = new Address();
-    addressEntity.setUrbanVillageName(addressCreateRequest.getUrbanVillageName());
-    addressEntity.setDistrictName(addressCreateRequest.getDistrictName());
-    addressEntity.setProvinceName(addressCreateRequest.getProvinceName());
-    addressEntity.setNeighbourhoodNumber(addressCreateRequest.getNeighbourhoodNumber());
-    addressEntity.setHamletNumber(addressCreateRequest.getHamletNumber());
-    addressEntity.setPostalCode(addressCreateRequest.getPostalCode());
-    addressEntity.setPerson(personEntity);
-    addressRepository.save(addressEntity);
+    addressRepository.save(Model.constructAddressEntity(new Address(), addressCreateRequest));
   }
 
   @Override
   public void update(AddressUpdateRequest addressUpdateRequest) {
     validationUtil.validateRequest(addressUpdateRequest);
     Address searchedAddress = addressRepository.findById(addressUpdateRequest.getId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "address not found"));
-    searchedAddress.setUrbanVillageName(addressUpdateRequest.getUrbanVillageName());
-    searchedAddress.setDistrictName(addressUpdateRequest.getDistrictName());
-    searchedAddress.setProvinceName(addressUpdateRequest.getProvinceName());
-    searchedAddress.setNeighbourhoodNumber(addressUpdateRequest.getNeighbourhoodNumber());
-    searchedAddress.setHamletNumber(addressUpdateRequest.getHamletNumber());
-    searchedAddress.setPostalCode(addressUpdateRequest.getPostalCode());
-    addressRepository.save(searchedAddress);
+    addressRepository.save(Model.constructAddressEntity(searchedAddress, addressUpdateRequest));
   }
 
   @Override

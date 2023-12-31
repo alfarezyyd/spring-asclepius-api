@@ -9,7 +9,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class AddressUpdateRequest {
+public class AddressUpdateRequest implements AddressDto{
   @JsonIgnore
   @NotBlank
   private Long id;

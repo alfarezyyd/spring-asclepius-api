@@ -1,8 +1,9 @@
 package alfarezyyd.asclepius.model.dto.doctor;
 
 import alfarezyyd.asclepius.model.dto.person.PersonResponse;
+import alfarezyyd.asclepius.model.dto.polyclinic.PolyclinicResponse;
+import alfarezyyd.asclepius.model.dto.speciality.SpecialityResponse;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -17,7 +18,7 @@ public class DoctorResponse {
   @JsonProperty("practice_permit_number")
   private String practicePermitNumber;
   @JsonProperty("speciality_code")
-  private List<@NotNull String> specialityCode;
+  private List<SpecialityResponse> specialityCode;
   @JsonProperty("polyclinic_code")
-  private List<@NotNull String> polyclinicCode;
+  private List<PolyclinicResponse> polyclinicCode;
 }
