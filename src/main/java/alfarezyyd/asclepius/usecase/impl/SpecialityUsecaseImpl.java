@@ -28,13 +28,13 @@ public class SpecialityUsecaseImpl implements SpecialityUsecase {
 
   @Override
   public List<SpecialityResponse> findAll() {
-    return specialityRepository.findAll().stream().map(speciality -> Model.convertIntoSpecialityResponse(null, speciality)).toList();
+    return specialityRepository.findAll().stream().map(specialityMapper::specialityEntityIntoSpecialityResponse).toList();
   }
 
   @Override
   public SpecialityResponse findById(String specialityId) {
     Speciality speciality = specialityRepository.findById(specialityId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "speciality not found"));
-    return Model.convertIntoSpecialityResponse(null, speciality);
+    return specialityMapper.specialityEntityIntoSpecialityResponse(speciality);
   }
 
   @Override
