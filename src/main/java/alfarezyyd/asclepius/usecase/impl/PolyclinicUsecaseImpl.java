@@ -29,7 +29,7 @@ public class PolyclinicUsecaseImpl implements PolyclinicUsecase {
   @Override
   public List<PolyclinicResponse> findAll() {
     List<Polyclinic> allPolyclinic = polyclinicRepository.findAll();
-    return allPolyclinic.stream().map(polyclinicMapper::polyclinicEntityIntoPolyclinicResponse).toList();
+    return allPolyclinic.stream().map(polyclinicMapper::polyclinicEntityIntoPolyclinicResponseWithoutDoctors).toList();
   }
 
   @Override

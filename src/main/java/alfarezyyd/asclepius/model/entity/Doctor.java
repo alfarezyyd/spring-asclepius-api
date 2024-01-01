@@ -19,8 +19,8 @@ public class Doctor extends Person {
   private String alumnus;
   @Column(name = "practice_permit_number")
   private String practicePermitNumber;
-  @ManyToMany(mappedBy = "doctors")
+  @ManyToMany(mappedBy = "doctors", fetch = FetchType.LAZY)
   private List<Speciality> specialities;
-  @ManyToMany(mappedBy = "doctors")
+  @ManyToMany(mappedBy = "doctors", fetch = FetchType.LAZY)
   private List<Polyclinic> polyclinics;
 }

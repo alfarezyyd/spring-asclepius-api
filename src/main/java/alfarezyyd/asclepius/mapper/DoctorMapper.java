@@ -9,5 +9,5 @@ import org.mapstruct.MappingTarget;
 @Mapper(componentModel = "spring", uses = PersonMapper.class)
 public interface DoctorMapper {
   DoctorResponse doctorEntityIntoDoctorResponse(Doctor doctorEntity);
-  Doctor doctorDtoIntoDoctorEntity(@MappingTarget Doctor doctorEntity, DoctorDto doctorDto);
+  void doctorDtoIntoDoctorEntity(@MappingTarget Doctor doctorEntity, DoctorDto doctorDto);
 }

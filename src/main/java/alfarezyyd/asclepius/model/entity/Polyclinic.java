@@ -19,7 +19,7 @@ public class Polyclinic {
   private String code;
   private String name;
   private String location;
-  @ManyToMany
+  @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(name = "doctors_polyclinics",
       joinColumns = @JoinColumn(name = "polyclinic_code", referencedColumnName = "code"),
       inverseJoinColumns = @JoinColumn(name = "doctor_id", referencedColumnName = "people_id"))

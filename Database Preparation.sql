@@ -164,3 +164,7 @@ CREATE TABLE patients_languages
     CONSTRAINT fk_patients_languages_patients FOREIGN KEY (patient_id) REFERENCES patients (people_id),
     CONSTRAINT fk_patients_languages_languages FOREIGN KEY (language_id) REFERENCES languages (id)
 );
+
+SELECT * FROM polyclinics;
+SELECT * FROM specialities;
+SELECT * FROM people;
