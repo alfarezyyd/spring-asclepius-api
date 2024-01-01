@@ -12,7 +12,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class PersonCreateRequest {
+public class PersonCreateRequest implements PersonDto{
   @JsonProperty("identity_card_number")
   @NotBlank
   @Size(min = 1, max = 20)
@@ -62,8 +62,8 @@ public class PersonCreateRequest {
   @NotBlank
   @Size(min = 11, max = 15)
   private String telephoneNumber;
-  @JsonProperty("address")
   @Valid
   @NotNull
-  private AddressCreateRequest addressCreateRequest;
+  private AddressCreateRequest address;
+
 }

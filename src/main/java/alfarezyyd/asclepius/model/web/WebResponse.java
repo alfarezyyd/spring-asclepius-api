@@ -1,4 +1,9 @@
 package alfarezyyd.asclepius.model.web;
 
-public class WebResponse {
+import lombok.Builder;
+
+@Builder
+public class WebResponse<T> {
+  private T responseData;
+  private String errorMessage;
 }

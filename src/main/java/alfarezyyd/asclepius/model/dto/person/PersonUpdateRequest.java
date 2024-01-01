@@ -1,8 +1,10 @@
 package alfarezyyd.asclepius.model.dto.person;
 
 import alfarezyyd.asclepius.constraint.*;
+import alfarezyyd.asclepius.model.dto.address.AddressUpdateRequest;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -11,7 +13,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class PersonUpdateRequest {
+public class PersonUpdateRequest implements PersonDto{
   @NotNull
   @JsonIgnore
   private Long personId;
@@ -64,4 +66,7 @@ public class PersonUpdateRequest {
   @NotBlank
   @Size(min = 11, max = 15)
   private String telephoneNumber;
+  @Valid
+  @NotNull
+  private AddressUpdateRequest address;
 }
