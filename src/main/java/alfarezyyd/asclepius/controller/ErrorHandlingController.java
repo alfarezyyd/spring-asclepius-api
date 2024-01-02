@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.sql.SQLIntegrityConstraintViolationException;
+
 @RestControllerAdvice
 public class ErrorHandlingController {
   @ExceptionHandler(ConstraintViolationException.class)
@@ -30,6 +32,15 @@ public class ErrorHandlingController {
 
   @ExceptionHandler(IllegalArgumentException.class)
   public ResponseEntity<WebResponse<String>> illegalArgumentException(IllegalArgumentException exception){
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+        .body(WebResponse.<String>builder()
+            .responseData(null)
+            .errorMessage(exception.getMessage())
+            .build());
+  }
+
+  @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+  public ResponseEntity<WebResponse<String>> sqlIntegrityConstraintViolation(SQLIntegrityConstraintViolationException exception){
     return ResponseEntity.status(HttpStatus.BAD_REQUEST)
         .body(WebResponse.<String>builder()
             .responseData(null)

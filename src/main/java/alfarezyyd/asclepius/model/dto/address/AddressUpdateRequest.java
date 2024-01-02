@@ -1,6 +1,5 @@
 package alfarezyyd.asclepius.model.dto.address;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -10,9 +9,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AddressUpdateRequest implements AddressDto{
-  @JsonIgnore
-  @NotBlank
-  private Long id;
   @JsonProperty("urban_village_name")
   @NotBlank
   @Size(min = 1, max = 100)

@@ -42,9 +42,6 @@ public class PolyclinicUsecaseImpl implements PolyclinicUsecase {
   public void create(PolyclinicCreateRequest polyclinicCreateRequest) {
     validationUtil.validateRequest(polyclinicCreateRequest);
     Polyclinic polyclinicEntity = new Polyclinic();
-    if (polyclinicRepository.existsById(polyclinicCreateRequest.getCode())) {
-      throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "polyclinic code already exists");
-    }
     polyclinicMapper.polyclinicDtoIntoPolyclinicEntity(polyclinicEntity, polyclinicCreateRequest);
     polyclinicRepository.save(polyclinicEntity);
   }

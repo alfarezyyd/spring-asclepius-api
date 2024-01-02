@@ -26,9 +26,9 @@ public class DoctorController {
     return ResponseWriter.writeIntoSuccessResponseBody(allDoctorResponse);
   }
 
-  @GetMapping(path = "/{doctorId}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public WebResponse<DoctorResponse> findById(@PathVariable(name = "doctorId") Long doctorId) {
-    DoctorResponse doctorDetail = doctorUsecase.findById(doctorId);
+  @GetMapping(path = "/{personId}", produces = MediaType.APPLICATION_JSON_VALUE)
+  public WebResponse<DoctorResponse> findById(@PathVariable(name = "personId") Long personId) {
+    DoctorResponse doctorDetail = doctorUsecase.findById(personId);
     return ResponseWriter.writeIntoSuccessResponseBody(doctorDetail);
   }
 
@@ -38,15 +38,16 @@ public class DoctorController {
     return ResponseWriter.writeIntoSuccessResponseBody("Success");
   }
 
-  @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public WebResponse<String> update(@RequestBody DoctorUpdateRequest doctorUpdateRequest) {
+  @PutMapping(path = {"/{personId}"}, consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  public WebResponse<String> update(@PathVariable Long personId, @RequestBody DoctorUpdateRequest doctorUpdateRequest) {
+    doctorUpdateRequest.setPersonId(personId);
     doctorUsecase.update(doctorUpdateRequest);
     return ResponseWriter.writeIntoSuccessResponseBody("Success");
   }
 
-  @DeleteMapping(path = "/{doctorId}", produces = MediaType.APPLICATION_JSON_VALUE)
-  public WebResponse<String> delete(@PathVariable(name = "doctorId") Long doctorId) {
-    doctorUsecase.delete(doctorId);
+  @DeleteMapping(path = "/{peopledId}", produces = MediaType.APPLICATION_JSON_VALUE)
+  public WebResponse<String> delete(@PathVariable(name = "peopledId") Long personId) {
+    doctorUsecase.delete(personId);
     return ResponseWriter.writeIntoSuccessResponseBody("Success");
   }
 }

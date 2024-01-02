@@ -1,5 +1,6 @@
 package alfarezyyd.asclepius.usecase.impl;
 
+import alfarezyyd.asclepius.mapper.AddressMapper;
 import alfarezyyd.asclepius.mapper.DoctorMapper;
 import alfarezyyd.asclepius.model.dto.doctor.DoctorCreateRequest;
 import alfarezyyd.asclepius.model.dto.doctor.DoctorResponse;
@@ -23,12 +24,14 @@ public class DoctorUsecaseImpl implements DoctorUsecase {
   private final AddressUsecase addressUsecase;
   private final ValidationUtil validationUtil;
   private final DoctorMapper doctorMapper;
+  private final AddressMapper addressMapper;
 
-  public DoctorUsecaseImpl(DoctorRepository doctorRepository, AddressUsecase addressUsecase, ValidationUtil validationUtil, DoctorMapper doctorMapper) {
+  public DoctorUsecaseImpl(DoctorRepository doctorRepository, AddressUsecase addressUsecase, ValidationUtil validationUtil, DoctorMapper doctorMapper, AddressMapper addressMapper) {
     this.doctorRepository = doctorRepository;
     this.addressUsecase = addressUsecase;
     this.validationUtil = validationUtil;
     this.doctorMapper = doctorMapper;
+    this.addressMapper = addressMapper;
   }
 
   @Override
@@ -37,8 +40,8 @@ public class DoctorUsecaseImpl implements DoctorUsecase {
   }
 
   @Override
-  public DoctorResponse findById(Long doctorId) {
-    Doctor searchedDoctor = doctorRepository.findById(doctorId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "doctor not found"));
+  public DoctorResponse findById(Long personId) {
+    Doctor searchedDoctor = doctorRepository.findById(personId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "doctor not found"));
     return doctorMapper.doctorEntityIntoDoctorResponse(searchedDoctor);
   }
 
@@ -57,16 +60,20 @@ public class DoctorUsecaseImpl implements DoctorUsecase {
   public void update(DoctorUpdateRequest doctorUpdateRequest) {
     validationUtil.validateRequest(doctorUpdateRequest);
     Doctor searchedDoctor = doctorRepository.findById(doctorUpdateRequest.getPersonId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "doctor not found"));
+    Address updateAddress = new Address();
+    addressMapper.addressDtoIntoAddressEntity(updateAddress, doctorUpdateRequest.getAddress());
+    if (!updateAddress.equals(searchedDoctor.getAddress())) {
+      addressUsecase.update(searchedDoctor.getAddress().getId(), doctorUpdateRequest.getAddress());
+    }
     doctorMapper.doctorDtoIntoDoctorEntity(searchedDoctor, doctorUpdateRequest);
     doctorRepository.save(searchedDoctor);
+
   }
 
   @Override
-  public void delete(Long doctorId) {
-    if (doctorRepository.existsById(doctorId)) {
-      doctorRepository.deleteById(doctorId);
-    } else {
-      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "doctor not found");
-    }
+  public void delete(Long personId) {
+    Doctor doctor = doctorRepository.findById(personId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "doctor not found"));
+    addressUsecase.delete(doctor.getAddress().getId());
+    doctorRepository.delete(doctor);
   }
 }

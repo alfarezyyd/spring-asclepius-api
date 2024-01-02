@@ -16,6 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Polyclinic {
   @Id
+  @Column
   private String code;
   private String name;
   private String location;

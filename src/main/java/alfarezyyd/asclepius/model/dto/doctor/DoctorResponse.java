@@ -11,8 +11,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class DoctorResponse {
-  private PersonResponse person;
+public class DoctorResponse extends PersonResponse {
   private String code;
   private String alumnus;
   @JsonProperty("practice_permit_number")

@@ -174,4 +174,7 @@ SELECT *
 FROM people;
 SELECT *
 FROM addresses;
+SELECT *
+FROM doctors;
 
+UPDATE people SET identity_card_number = 'A012932' WHERE people_id = 1;

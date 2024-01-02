@@ -8,8 +8,8 @@ import java.util.List;
 
 public interface DoctorUsecase {
   List<DoctorResponse> findAll();
-  DoctorResponse findById(Long doctorId);
+  DoctorResponse findById(Long personId);
   void create(DoctorCreateRequest doctorCreateRequest);
   void update(DoctorUpdateRequest doctorUpdateRequest);
-  void delete(Long doctorId);
+  void delete(Long personId);
 }

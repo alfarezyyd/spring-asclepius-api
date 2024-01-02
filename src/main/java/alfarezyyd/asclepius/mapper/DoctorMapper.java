@@ -9,10 +9,9 @@ import org.mapstruct.MappingTarget;
 
 @Mapper(componentModel = "spring", uses = PersonMapper.class)
 public interface DoctorMapper {
+
   DoctorResponse doctorEntityIntoDoctorResponse(Doctor doctorEntity);
 
   @Mapping(target = "birthDate", source = "doctorDto.birthDate", qualifiedByName = "stringIntoDateBirthDate")
   void doctorDtoIntoDoctorEntity(@MappingTarget Doctor doctorEntity, DoctorDto doctorDto);
-
-
 }

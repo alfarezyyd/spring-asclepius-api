@@ -18,13 +18,12 @@ public class Person {
   @Column(name = "people_id")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long personId;
-  @Column(name = "identity_card_number", unique = true)
+  @Column(name = "identity_card_number")
   private String identityCardNumber;
   @Column(name = "identity_card_type")
   private String identityCardType;
   @Column(name = "full_name")
   private String fullName;
-  @Column(unique = true)
   private String email;
   private String gender;
   private String religion;
@@ -42,7 +41,7 @@ public class Person {
   private String lastEducation;
   @Column(name = "telephone_number")
   private String telephoneNumber;
-  @OneToOne
+  @OneToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "address_id", referencedColumnName = "id")
   private Address address;
 }
