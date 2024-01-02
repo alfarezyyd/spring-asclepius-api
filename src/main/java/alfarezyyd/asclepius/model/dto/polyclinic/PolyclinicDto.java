@@ -1,9 +1,11 @@
 package alfarezyyd.asclepius.model.dto.polyclinic;
 
 public interface PolyclinicDto {
-  public String getCode();
+  String getCode();
 
-  public String getName();
+  String getName();
 
-  public String getLocation();
+  String getLocation();
+
+  String getNote();
 }

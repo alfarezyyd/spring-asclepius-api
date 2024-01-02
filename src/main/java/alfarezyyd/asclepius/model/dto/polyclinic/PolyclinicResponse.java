@@ -12,5 +12,6 @@ public class PolyclinicResponse {
   private String code;
   private String name;
   private String location;
+  private String note;
   private List<DoctorResponse> doctors;
 }

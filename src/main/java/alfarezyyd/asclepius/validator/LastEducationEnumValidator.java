@@ -12,7 +12,11 @@ public class LastEducationEnumValidator implements ConstraintValidator<LastEduca
     if (value == null) {
       return true;
     }
-
-    return LastEducation.fromValue(value) != null;
+    try {
+      LastEducation.valueOf(value);
+      return true;
+    } catch (IllegalArgumentException e) {
+      return false;
+    }
   }
 }

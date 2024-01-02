@@ -14,5 +14,5 @@ public class SpecialityCreateRequest implements SpecialityDto{
   @NotBlank
   @Size(min = 1, max = 100)
   private String name;
-  private String text;
+  private String note;
 }

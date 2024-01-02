@@ -4,33 +4,33 @@ USE spring_asclepius_api;
 
 CREATE TABLE addresses
 (
-    id                   BIGINT UNSIGNED PRIMARY KEY NOT NULL,
-    urban_village_name   VARCHAR(100)                NOT NULL,
-    sub_district_name    VARCHAR(100)                NOT NULL,
-    district_name        VARCHAR(100)                NOT NULL,
-    province_name        VARCHAR(100)                NOT NULL,
-    neighbourhood_number VARCHAR(5)                  NOT NULL,
-    hamlet_number        VARCHAR(5)                  NOT NULL,
-    postal_code          VARCHAR(5)                  NOT NULL
+    id                   BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    urban_village_name   VARCHAR(100)                               NOT NULL,
+    sub_district_name    VARCHAR(100)                               NOT NULL,
+    district_name        VARCHAR(100)                               NOT NULL,
+    province_name        VARCHAR(100)                               NOT NULL,
+    neighbourhood_number VARCHAR(5)                                 NOT NULL,
+    hamlet_number        VARCHAR(5)                                 NOT NULL,
+    postal_code          VARCHAR(5)                                 NOT NULL
 );
 
 CREATE TABLE people
 (
-    people_id                 BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT                                                                                                             NOT NULL,
-    address_id                BIGINT UNSIGNED UNIQUE                                                                                                                                 NOT NULL,
-    identity_card_number      VARCHAR(20) UNIQUE                                                                                                                                     NOT NULL,
-    identity_card_type ENUM ('Identity Card', 'Driving License')                                                                                                              NOT NULL,
-    full_name                 VARCHAR(50)                                                                                                                                            NOT NULL,
-    email                     VARCHAR(100) UNIQUE                                                                                                                                    NOT NULL,
-    gender                    ENUM ('Man', 'Woman')                                                                                                                                  NOT NULL,
-    religion                  ENUM ('Muslim', 'Christian', 'Hindu', 'Buddhist', 'Kong Hu Chu')                                                                                       NOT NULL,
-    blood_type                ENUM ('A', 'B', 'O', 'AB')                                                                                                                             NOT NULL,
-    birth_place               VARCHAR(50)                                                                                                                                            NOT NULL,
-    birth_date                DATE                                                                                                                                                   NOT NULL,
-    age                       TINYINT UNSIGNED                                                                                                                                       NOT NULL,
-    marital_status            ENUM ('Married', 'Not Married Yet')                                                                                                                        NOT NULL,
-    last_education            ENUM ('Elementary School', 'Junior High School', 'Senior/Vocational High School', 'Diploma 3', 'Bachelor Degree', 'Associate Degree', 'Master Degree') NOT NULL,
-    telephone_number          VARCHAR(15),
+    people_id            BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT                                  NOT NULL,
+    address_id           BIGINT UNSIGNED UNIQUE                                                      NOT NULL,
+    identity_card_number VARCHAR(20) UNIQUE                                                          NOT NULL,
+    identity_card_type   ENUM ('IDENTITY_CARD', 'DRIVING_LICENSE')                                   NOT NULL,
+    full_name            VARCHAR(50)                                                                 NOT NULL,
+    email                VARCHAR(100) UNIQUE                                                         NOT NULL,
+    gender               ENUM ('MAN', 'WOMAN')                                                       NOT NULL,
+    religion             ENUM ('MUSLIM', 'CHRISTIAN', 'CATHOLIC','HINDU', 'BUDDHIST', 'KONG_HU_CHU') NOT NULL,
+    blood_type           ENUM ('A', 'B', 'O', 'AB')                                                  NOT NULL,
+    birth_place          VARCHAR(50)                                                                 NOT NULL,
+    birth_date           DATE                                                                        NOT NULL,
+    age                  TINYINT UNSIGNED                                                            NOT NULL,
+    marital_status       ENUM ('MARRIED', 'NOT_MARRIED_YET')                                         NOT NULL,
+    last_education       ENUM ('ELEMENTARY_SCHOOL', 'JUNIOR_HIGH_SCHOOL', 'SENIOR_OR_VOCATIONAL_SCHOOL', 'DIPLOMA_3', 'BACHELOR_DEGREE', 'ASSOCIATE_DEGREE', 'MASTER_DEGREE'),
+    telephone_number     VARCHAR(15),
     CONSTRAINT fk_people_addresses FOREIGN KEY (address_id) REFERENCES addresses (id)
 );
 
@@ -38,7 +38,6 @@ CREATE TABLE doctors
 (
     people_id              BIGINT UNSIGNED PRIMARY KEY NOT NULL,
     code                   VARCHAR(16) UNIQUE          NOT NULL,
-    speciality_code        VARCHAR(16)                 NOT NULL,
     alumnus                VARCHAR(100)                NOT NULL,
     practice_permit_number VARCHAR(30)                 NOT NULL,
     CONSTRAINT fk_doctors_people FOREIGN KEY (people_id) REFERENCES people (people_id)
@@ -165,6 +164,14 @@ CREATE TABLE patients_languages
     CONSTRAINT fk_patients_languages_languages FOREIGN KEY (language_id) REFERENCES languages (id)
 );
 
-SELECT * FROM polyclinics;
-SELECT * FROM specialities;
-SELECT * FROM people;
+SELECT *
+FROM polyclinics;
+SELECT *
+FROM doctors_polyclinics;
+SELECT *
+FROM specialities;
+SELECT *
+FROM people;
+SELECT *
+FROM addresses;
+

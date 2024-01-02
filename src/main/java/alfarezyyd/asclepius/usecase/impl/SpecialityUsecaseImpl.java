@@ -28,7 +28,7 @@ public class SpecialityUsecaseImpl implements SpecialityUsecase {
 
   @Override
   public List<SpecialityResponse> findAll() {
-    return specialityRepository.findAll().stream().map(specialityMapper::specialityEntityIntoSpecialityResponse).toList();
+    return specialityRepository.findAll().stream().map(specialityMapper::specialityEntityIntoSpecialityResponseWithoutDoctors).toList();
   }
 
   @Override

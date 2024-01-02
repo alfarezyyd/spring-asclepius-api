@@ -1,5 +1,6 @@
 package alfarezyyd.asclepius.model.dto.person;
 
+import alfarezyyd.asclepius.model.dto.address.AddressResponse;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -31,4 +32,5 @@ public class PersonResponse {
   private String lastEducation;
   @JsonProperty("telephone_number")
   private String telephoneNumber;
+  private AddressResponse address;
 }

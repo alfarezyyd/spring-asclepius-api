@@ -13,6 +13,11 @@ public class MaritalStatusEnumValidator implements ConstraintValidator<MaritalSt
       return true;
     }
 
-    return MaritalStatus.fromValue(value) != null;
+    try {
+      MaritalStatus.valueOf(value);
+      return true;
+    } catch (IllegalArgumentException e) {
+      return false;
+    }
   }
 }

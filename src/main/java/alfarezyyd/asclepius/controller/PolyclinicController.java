@@ -38,9 +38,10 @@ public class PolyclinicController {
     return ResponseWriter.writeIntoSuccessResponseBody("Success");
   }
 
-  @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public WebResponse<String> update(@RequestBody PolyclinicUpdateRequest polyclinicUpdateRequest) {
+  @PutMapping(path = "/{polyclinicCode}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  public WebResponse<String> update(@PathVariable(name = "polyclinicCode") String polyclinicCode, @RequestBody PolyclinicUpdateRequest polyclinicUpdateRequest) {
     polyclinicUsecase.update(polyclinicUpdateRequest);
+    polyclinicUpdateRequest.setCode(polyclinicCode);
     return ResponseWriter.writeIntoSuccessResponseBody("Success");
   }
 

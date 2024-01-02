@@ -5,5 +5,5 @@ public interface SpecialityDto {
 
   String getName();
 
-  String getText();
+  String getNote();
 }

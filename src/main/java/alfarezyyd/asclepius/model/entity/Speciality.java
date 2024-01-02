@@ -18,7 +18,7 @@ public class Speciality {
   @Id
   private String code;
   private String name;
-  private String text;
+  private String note;
   @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(name = "doctors_specialities",
       joinColumns = @JoinColumn(name = "speciality_code", referencedColumnName = "code"),

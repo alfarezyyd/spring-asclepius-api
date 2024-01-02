@@ -38,8 +38,9 @@ public class SpecialityController {
     return ResponseWriter.writeIntoSuccessResponseBody("Success");
   }
 
-  @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public WebResponse<String> update(@RequestBody SpecialityUpdateRequest specialityUpdateRequest) {
+  @PutMapping(path = "/{specialityCode}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+  public WebResponse<String> update(@PathVariable(name = "specialityCode") String specialityCode, @RequestBody SpecialityUpdateRequest specialityUpdateRequest) {
+    specialityUpdateRequest.setCode(specialityCode);
     specialityUsecase.update(specialityUpdateRequest);
     return ResponseWriter.writeIntoSuccessResponseBody("Success");
   }

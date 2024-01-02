@@ -17,5 +17,5 @@ public class PolyclinicUpdateRequest implements PolyclinicDto {
   @NotBlank
   @Size(min = 1, max = 50)
   private String location;
-  private String text;
+  private String note;
 }

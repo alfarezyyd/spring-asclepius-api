@@ -13,6 +13,11 @@ public class ReligionEnumValidator implements ConstraintValidator<ReligionEnumCo
       return true;
     }
 
-    return Religion.fromValue(value) != null;
+    try {
+      Religion.valueOf(value);
+      return true;
+    } catch (IllegalArgumentException e) {
+      return false;
+    }
   }
 }

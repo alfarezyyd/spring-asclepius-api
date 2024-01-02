@@ -10,9 +10,8 @@ import alfarezyyd.asclepius.usecase.AddressUsecase;
 import alfarezyyd.asclepius.util.ValidationUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.server.ResponseStatusException;
-
-import java.util.List;
 
 @Service
 public class AddressUsecaseImpl implements AddressUsecase {
@@ -27,23 +26,19 @@ public class AddressUsecaseImpl implements AddressUsecase {
   }
 
   @Override
-  public List<AddressResponse> findAll() {
-    List<Address> allAddress = addressRepository.findAll();
-    return allAddress.stream().map(addressMapper::addressEntityIntoAddressResponse).toList();
-  }
-
-  @Override
   public AddressResponse findById(Long addressId) {
     Address addressEntity = addressRepository.findById(addressId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Address not found"));
     return addressMapper.addressEntityIntoAddressResponse(addressEntity);
   }
 
   @Override
-  public void create(AddressCreateRequest addressCreateRequest) {
+  @Transactional
+  public Address create(AddressCreateRequest addressCreateRequest) {
     validationUtil.validateRequest(addressCreateRequest);
     Address newAddress = new Address();
     addressMapper.addressDtoIntoAddressEntity(newAddress, addressCreateRequest);
     addressRepository.save(newAddress);
+    return newAddress;
   }
 
   @Override

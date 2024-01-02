@@ -17,4 +17,5 @@ public class PolyclinicCreateRequest implements PolyclinicDto{
   @NotBlank
   @Size(min = 1, max = 50)
   private String location;
+  private String note;
 }

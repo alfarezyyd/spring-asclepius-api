@@ -28,4 +28,12 @@ public class ErrorHandlingController {
             .build());
   }
 
+  @ExceptionHandler(IllegalArgumentException.class)
+  public ResponseEntity<WebResponse<String>> illegalArgumentException(IllegalArgumentException exception){
+    return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+        .body(WebResponse.<String>builder()
+            .responseData(null)
+            .errorMessage(exception.getMessage())
+            .build());
+  }
 }

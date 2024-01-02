@@ -19,6 +19,7 @@ public class Polyclinic {
   private String code;
   private String name;
   private String location;
+  private String note;
   @ManyToMany(fetch = FetchType.LAZY)
   @JoinTable(name = "doctors_polyclinics",
       joinColumns = @JoinColumn(name = "polyclinic_code", referencedColumnName = "code"),

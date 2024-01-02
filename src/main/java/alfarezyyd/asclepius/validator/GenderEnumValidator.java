@@ -1,7 +1,7 @@
 package alfarezyyd.asclepius.validator;
 
 import alfarezyyd.asclepius.constraint.GenderEnumConstraint;
-import alfarezyyd.asclepius.model.option.IdentityCardType;
+import alfarezyyd.asclepius.model.option.Gender;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
@@ -12,7 +12,11 @@ public class GenderEnumValidator implements ConstraintValidator<GenderEnumConstr
     if (value == null) {
       return true;
     }
-
-    return IdentityCardType.fromValue(value) != null;
+    try {
+      Gender.valueOf(value);
+      return true;
+    } catch (IllegalArgumentException e) {
+      return false;
+    }
   }
 }

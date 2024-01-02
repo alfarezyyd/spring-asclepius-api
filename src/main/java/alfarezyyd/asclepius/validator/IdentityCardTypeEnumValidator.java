@@ -13,6 +13,11 @@ public class IdentityCardTypeEnumValidator implements ConstraintValidator<Identi
       return true;
     }
 
-    return IdentityCardType.fromValue(value) != null;
+    try {
+      IdentityCardType.valueOf(value);
+      return true;
+    } catch (IllegalArgumentException e) {
+      return false;
+    }
   }
 }

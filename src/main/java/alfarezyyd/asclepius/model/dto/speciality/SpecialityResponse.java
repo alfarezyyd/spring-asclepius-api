@@ -11,6 +11,6 @@ import java.util.List;
 public class SpecialityResponse {
   private String code;
   private String name;
-  private String text;
+  private String note;
   private List<DoctorResponse> doctors;
 }

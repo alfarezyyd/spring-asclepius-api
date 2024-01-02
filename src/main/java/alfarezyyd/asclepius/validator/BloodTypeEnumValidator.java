@@ -13,6 +13,11 @@ public class BloodTypeEnumValidator implements ConstraintValidator<BloodTypeEnum
       return true;
     }
 
-    return BloodType.fromValue(value) != null;
+    try {
+      BloodType.valueOf(value);
+      return true;
+    } catch (IllegalArgumentException e) {
+      return false;
+    }
   }
 }
