@@ -1,8 +1,8 @@
 package alfarezyyd.asclepius.helper;
 
 import alfarezyyd.asclepius.model.dto.doctor.DoctorDto;
-import alfarezyyd.asclepius.model.entity.Polyclinic;
-import alfarezyyd.asclepius.model.entity.Speciality;
+import alfarezyyd.asclepius.model.dto.patient.PatientDto;
+import alfarezyyd.asclepius.model.entity.*;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -20,6 +20,20 @@ public class General {
 
     if (polyclinics.size() != doctorDto.getPolyclinics().size()) {
       throw new ResponseStatusException(HttpStatus.NOT_FOUND, "some polyclinics not found");
+    }
+  }
+
+  public static void patientIntegrityCheck(List<Disability> disabilities, List<Language> languages, List<Insurance> insurances, PatientDto patientDto) {
+    if (disabilities.size() != patientDto.getDisabilities().size()) {
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "some disabilities not found");
+    }
+
+    if (insurances.size() != patientDto.getInsurances().size()) {
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "some insurances not found");
+    }
+
+    if (languages.size() != patientDto.getLanguages().size()) {
+      throw new ResponseStatusException(HttpStatus.NOT_FOUND, "some languages not found");
     }
   }
 }

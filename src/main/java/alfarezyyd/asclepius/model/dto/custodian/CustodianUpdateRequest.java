@@ -16,5 +16,4 @@ public class CustodianUpdateRequest extends PersonUpdateRequest implements Custo
   @NotBlank
   @Size(min = 1, max = 50)
   private String job;
-
 }

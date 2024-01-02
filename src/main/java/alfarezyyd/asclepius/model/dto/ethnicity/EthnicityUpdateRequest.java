@@ -7,11 +7,9 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class EthnicityUpdateRequest {
+public class EthnicityUpdateRequest implements EthnicityDto{
   @NotNull
-  @Min(1)
-  @Max(254)
-  private Byte id;
+  private Short id;
   @NotBlank
   @EthnicityEnumConstraint
   private String type;

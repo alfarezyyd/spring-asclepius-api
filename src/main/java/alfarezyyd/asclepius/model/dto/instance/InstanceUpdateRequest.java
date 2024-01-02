@@ -10,7 +10,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class InstanceUpdateRequest {
+public class InstanceUpdateRequest implements InstanceDto {
   @NotBlank
   @Size(min = 1, max = 16)
   private String code;

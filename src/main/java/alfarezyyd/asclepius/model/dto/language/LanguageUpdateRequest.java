@@ -9,7 +9,7 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class LanguageUpdateRequest {
+public class LanguageUpdateRequest implements LanguageDto {
   @NotNull
   @JsonIgnore
   private Long id;
