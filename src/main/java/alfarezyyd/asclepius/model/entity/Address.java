@@ -32,4 +32,6 @@ public class Address {
   private String postalCode;
   @OneToOne(mappedBy = "address")
   private Person person;
+  @OneToOne(mappedBy = "address")
+  private Instance instance;
 }

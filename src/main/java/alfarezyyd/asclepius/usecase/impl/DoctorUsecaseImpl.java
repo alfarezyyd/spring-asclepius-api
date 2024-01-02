@@ -1,7 +1,6 @@
 package alfarezyyd.asclepius.usecase.impl;
 
 import alfarezyyd.asclepius.helper.General;
-import alfarezyyd.asclepius.mapper.AddressMapper;
 import alfarezyyd.asclepius.mapper.DoctorMapper;
 import alfarezyyd.asclepius.model.dto.doctor.DoctorCreateRequest;
 import alfarezyyd.asclepius.model.dto.doctor.DoctorResponse;
@@ -29,16 +28,14 @@ public class DoctorUsecaseImpl implements DoctorUsecase {
   private final AddressUsecase addressUsecase;
   private final ValidationUtil validationUtil;
   private final DoctorMapper doctorMapper;
-  private final AddressMapper addressMapper;
   private final SpecialityRepository specialityRepository;
   private final PolyclinicRepository polyclinicRepository;
 
-  public DoctorUsecaseImpl(DoctorRepository doctorRepository, AddressUsecase addressUsecase, ValidationUtil validationUtil, DoctorMapper doctorMapper, AddressMapper addressMapper, SpecialityRepository specialityRepository, PolyclinicRepository polyclinicRepository) {
+  public DoctorUsecaseImpl(DoctorRepository doctorRepository, AddressUsecase addressUsecase, ValidationUtil validationUtil, DoctorMapper doctorMapper, SpecialityRepository specialityRepository, PolyclinicRepository polyclinicRepository) {
     this.doctorRepository = doctorRepository;
     this.addressUsecase = addressUsecase;
     this.validationUtil = validationUtil;
     this.doctorMapper = doctorMapper;
-    this.addressMapper = addressMapper;
     this.specialityRepository = specialityRepository;
     this.polyclinicRepository = polyclinicRepository;
   }

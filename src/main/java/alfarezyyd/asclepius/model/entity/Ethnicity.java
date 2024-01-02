@@ -16,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Ethnicity {
   @Id
-  private Byte id;
+  private Short id;
   private String type;
   private String name;
   @OneToMany(mappedBy = "ethnicity")

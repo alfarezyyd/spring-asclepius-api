@@ -79,7 +79,7 @@ CREATE TABLE doctors_specialities
 CREATE TABLE ethnicities
 (
     id   SMALLINT UNSIGNED AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    type ENUM ('Ethnic', 'Nationality')               NOT NULL,
+    type ENUM ('ETHNIC', 'NATIONALITY')               NOT NULL,
     name VARCHAR(50)                                  NOT NULL
 );
 
@@ -107,28 +107,30 @@ CREATE TABLE insurances
 CREATE TABLE instances
 (
     code             VARCHAR(16) PRIMARY KEY NOT NULL,
+    address_id       BIGINT UNSIGNED UNIQUE  NOT NULL,
     name             VARCHAR(100)            NOT NULL,
-    telephone_number VARCHAR(15)             NOT NULL
+    telephone_number VARCHAR(15)             NOT NULL,
+    CONSTRAINT fk_instances_addresses FOREIGN KEY (address_id) REFERENCES addresses (id)
 );
 
 CREATE TABLE custodians
 (
     people_id BIGINT UNSIGNED PRIMARY KEY                                                NOT NULL,
-    relation  ENUM ('Father', 'Mother','Wife','Husband','Sibling','Child','Self','Misc') NOT NULL,
+    relation  ENUM ('FATHER', 'MOTHER','WIFE','HUSBAND','SIBLING','CHILD','SELF','MISC') NOT NULL,
     job       VARCHAR(50)                                                                NOT NULL,
     CONSTRAINT fk_custodians_people FOREIGN KEY (people_id) REFERENCES people (people_id)
 );
 
 CREATE TABLE patients
 (
-    people_id           BIGINT UNSIGNED PRIMARY KEY           NOT NULL,
-    medical_record_code BIGINT UNSIGNED AUTO_INCREMENT UNIQUE NOT NULL,
-    ethnic_id           SMALLINT UNSIGNED                     NOT NULL,
-    custodian_id        BIGINT UNSIGNED                       NOT NULL,
+    people_id           BIGINT UNSIGNED PRIMARY KEY NOT NULL,
+    medical_record_code VARCHAR(128) UNIQUE         NOT NULL,
+    ethnic_id           SMALLINT UNSIGNED           NOT NULL,
+    custodian_id        BIGINT UNSIGNED             NOT NULL,
     instance_code       VARCHAR(16),
-    mother_name         VARCHAR(50)                           NOT NULL,
-    registration_date   DATE                                  NOT NULL,
-    job                 VARCHAR(50)                           NOT NULL,
+    mother_name         VARCHAR(50)                 NOT NULL,
+    registration_date   DATE                        NOT NULL,
+    job                 VARCHAR(50)                 NOT NULL,
     employee_code       VARCHAR(50),
     CONSTRAINT fk_patients_people FOREIGN KEY (people_id) REFERENCES people (people_id),
     CONSTRAINT fk_patients_custodians FOREIGN KEY (custodian_id) REFERENCES custodians (people_id),
@@ -178,5 +180,3 @@ SELECT *
 FROM addresses;
 SELECT *
 FROM doctors;
-
-UPDATE people SET identity_card_number = 'A012932' WHERE people_id = 1;

@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table(name = "instances")
 @Getter
@@ -18,4 +20,9 @@ public class Instance {
   private String name;
   @Column(name = "telephone_number")
   private String telephoneNumber;
+  @OneToOne
+  @JoinColumn(name = "address_id", referencedColumnName = "id")
+  private Address address;
+  @OneToMany(mappedBy = "instance")
+  private List<Patient> patients;
 }

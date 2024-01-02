@@ -16,7 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Disability {
   @Id
-  private Long id;
+  private Short id;
   private String name;
   @ManyToMany
   @JoinTable(name = "patients_disabilities",

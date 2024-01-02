@@ -36,4 +36,7 @@ public class Patient extends Person {
   @ManyToOne
   @JoinColumn(name = "custodian_id", referencedColumnName = "people_id")
   private Custodian custodian;
+  @ManyToOne
+  @JoinColumn(name = "instance_code", referencedColumnName = "code")
+  private Instance instance;
 }
