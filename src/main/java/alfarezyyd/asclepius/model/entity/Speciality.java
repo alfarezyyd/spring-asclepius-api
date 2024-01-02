@@ -19,9 +19,6 @@ public class Speciality {
   private String code;
   private String name;
   private String note;
-  @ManyToMany(fetch = FetchType.LAZY)
-  @JoinTable(name = "doctors_specialities",
-      joinColumns = @JoinColumn(name = "speciality_code", referencedColumnName = "code"),
-      inverseJoinColumns = @JoinColumn(name = "doctor_id", referencedColumnName = "people_id"))
+  @ManyToMany(mappedBy = "specialities", cascade = CascadeType.PERSIST)
   private List<Doctor> doctors;
 }

@@ -21,9 +21,7 @@ public class Polyclinic {
   private String name;
   private String location;
   private String note;
-  @ManyToMany(fetch = FetchType.LAZY)
-  @JoinTable(name = "doctors_polyclinics",
-      joinColumns = @JoinColumn(name = "polyclinic_code", referencedColumnName = "code"),
-      inverseJoinColumns = @JoinColumn(name = "doctor_id", referencedColumnName = "people_id"))
-  private List<Doctor> doctors;
+  @ManyToMany(mappedBy = "polyclinics")
+  private List<Doctor> polyclinics;
+
 }

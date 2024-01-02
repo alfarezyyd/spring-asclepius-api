@@ -10,7 +10,7 @@ public interface AddressUsecase {
 
   Address create(AddressCreateRequest addressCreateRequest);
 
-  void update(Long addressId, AddressUpdateRequest addressUpdateRequest);
+  void update(AddressUpdateRequest addressUpdateRequest, Address updateAddress);
 
   void delete(Long addressId);
 }

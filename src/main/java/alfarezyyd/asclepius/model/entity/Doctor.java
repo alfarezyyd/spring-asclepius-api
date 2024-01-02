@@ -19,8 +19,14 @@ public class Doctor extends Person {
   private String alumnus;
   @Column(name = "practice_permit_number")
   private String practicePermitNumber;
-  @ManyToMany(mappedBy = "doctors", fetch = FetchType.LAZY)
+  @ManyToMany
+  @JoinTable(name = "doctors_specialities",
+      inverseJoinColumns = @JoinColumn(name = "speciality_code", referencedColumnName = "code"),
+      joinColumns = @JoinColumn(name = "doctor_id", referencedColumnName = "people_id"))
   private List<Speciality> specialities;
-  @ManyToMany(mappedBy = "doctors", fetch = FetchType.LAZY)
+  @ManyToMany
+  @JoinTable(name = "doctors_polyclinics",
+      inverseJoinColumns = @JoinColumn(name = "polyclinic_code", referencedColumnName = "code"),
+      joinColumns = @JoinColumn(name = "doctor_id", referencedColumnName = "people_id"))
   private List<Polyclinic> polyclinics;
 }

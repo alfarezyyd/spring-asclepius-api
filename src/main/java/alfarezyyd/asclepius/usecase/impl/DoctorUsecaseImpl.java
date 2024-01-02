@@ -1,5 +1,6 @@
 package alfarezyyd.asclepius.usecase.impl;
 
+import alfarezyyd.asclepius.helper.General;
 import alfarezyyd.asclepius.mapper.AddressMapper;
 import alfarezyyd.asclepius.mapper.DoctorMapper;
 import alfarezyyd.asclepius.model.dto.doctor.DoctorCreateRequest;
@@ -7,7 +8,11 @@ import alfarezyyd.asclepius.model.dto.doctor.DoctorResponse;
 import alfarezyyd.asclepius.model.dto.doctor.DoctorUpdateRequest;
 import alfarezyyd.asclepius.model.entity.Address;
 import alfarezyyd.asclepius.model.entity.Doctor;
+import alfarezyyd.asclepius.model.entity.Polyclinic;
+import alfarezyyd.asclepius.model.entity.Speciality;
 import alfarezyyd.asclepius.repository.DoctorRepository;
+import alfarezyyd.asclepius.repository.PolyclinicRepository;
+import alfarezyyd.asclepius.repository.SpecialityRepository;
 import alfarezyyd.asclepius.usecase.AddressUsecase;
 import alfarezyyd.asclepius.usecase.DoctorUsecase;
 import alfarezyyd.asclepius.util.ValidationUtil;
@@ -25,13 +30,17 @@ public class DoctorUsecaseImpl implements DoctorUsecase {
   private final ValidationUtil validationUtil;
   private final DoctorMapper doctorMapper;
   private final AddressMapper addressMapper;
+  private final SpecialityRepository specialityRepository;
+  private final PolyclinicRepository polyclinicRepository;
 
-  public DoctorUsecaseImpl(DoctorRepository doctorRepository, AddressUsecase addressUsecase, ValidationUtil validationUtil, DoctorMapper doctorMapper, AddressMapper addressMapper) {
+  public DoctorUsecaseImpl(DoctorRepository doctorRepository, AddressUsecase addressUsecase, ValidationUtil validationUtil, DoctorMapper doctorMapper, AddressMapper addressMapper, SpecialityRepository specialityRepository, PolyclinicRepository polyclinicRepository) {
     this.doctorRepository = doctorRepository;
     this.addressUsecase = addressUsecase;
     this.validationUtil = validationUtil;
     this.doctorMapper = doctorMapper;
     this.addressMapper = addressMapper;
+    this.specialityRepository = specialityRepository;
+    this.polyclinicRepository = polyclinicRepository;
   }
 
   @Override
@@ -53,6 +62,11 @@ public class DoctorUsecaseImpl implements DoctorUsecase {
     Doctor doctor = new Doctor();
     doctor.setAddress(address);
     doctorMapper.doctorDtoIntoDoctorEntity(doctor, doctorCreateRequest);
+    List<Speciality> specialities = specialityRepository.findAllById(doctorCreateRequest.getSpecialities());
+    List<Polyclinic> polyclinics = polyclinicRepository.findAllById(doctorCreateRequest.getPolyclinics());
+    General.doctorIntegrityCheck(specialities, polyclinics, doctorCreateRequest);
+    doctor.setSpecialities(specialities);
+    doctor.setPolyclinics(polyclinics);
     doctorRepository.save(doctor);
   }
 
@@ -60,12 +74,13 @@ public class DoctorUsecaseImpl implements DoctorUsecase {
   public void update(DoctorUpdateRequest doctorUpdateRequest) {
     validationUtil.validateRequest(doctorUpdateRequest);
     Doctor searchedDoctor = doctorRepository.findById(doctorUpdateRequest.getPersonId()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "doctor not found"));
-    Address updateAddress = new Address();
-    addressMapper.addressDtoIntoAddressEntity(updateAddress, doctorUpdateRequest.getAddress());
-    if (!updateAddress.equals(searchedDoctor.getAddress())) {
-      addressUsecase.update(searchedDoctor.getAddress().getId(), doctorUpdateRequest.getAddress());
-    }
+    List<Speciality> specialities = specialityRepository.findAllById(doctorUpdateRequest.getSpecialities());
+    List<Polyclinic> polyclinics = polyclinicRepository.findAllById(doctorUpdateRequest.getPolyclinics());
+    addressUsecase.update(doctorUpdateRequest.getAddress(), searchedDoctor.getAddress());
     doctorMapper.doctorDtoIntoDoctorEntity(searchedDoctor, doctorUpdateRequest);
+    General.doctorIntegrityCheck(specialities, polyclinics, doctorUpdateRequest);
+    searchedDoctor.setPolyclinics(polyclinics);
+    searchedDoctor.setSpecialities(specialities);
     doctorRepository.save(searchedDoctor);
 
   }
@@ -73,7 +88,7 @@ public class DoctorUsecaseImpl implements DoctorUsecase {
   @Override
   public void delete(Long personId) {
     Doctor doctor = doctorRepository.findById(personId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "doctor not found"));
-    addressUsecase.delete(doctor.getAddress().getId());
     doctorRepository.delete(doctor);
+    addressUsecase.delete(doctor.getAddress().getId());
   }
 }

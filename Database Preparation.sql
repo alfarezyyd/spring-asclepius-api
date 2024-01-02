@@ -169,6 +169,8 @@ FROM polyclinics;
 SELECT *
 FROM doctors_polyclinics;
 SELECT *
+FROM doctors_specialities;
+SELECT *
 FROM specialities;
 SELECT *
 FROM people;

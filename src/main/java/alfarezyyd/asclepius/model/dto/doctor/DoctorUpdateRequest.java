@@ -23,8 +23,6 @@ public class DoctorUpdateRequest extends PersonUpdateRequest implements DoctorDt
   @Size(min = 1, max = 30)
   @JsonProperty("practice_permit_number")
   private String practicePermitNumber;
-  @JsonProperty("speciality_code")
-  private List<@NotNull String> specialityCode;
-  @JsonProperty("polyclinic_code")
-  private List<@NotNull String> polyclinicCode;
+  private List<@NotNull String> specialities;
+  private List<@NotNull String> polyclinics;
 }

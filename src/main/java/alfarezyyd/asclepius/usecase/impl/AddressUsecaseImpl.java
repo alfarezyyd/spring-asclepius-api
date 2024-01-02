@@ -42,11 +42,12 @@ public class AddressUsecaseImpl implements AddressUsecase {
   }
 
   @Override
-  public void update(Long addressId, AddressUpdateRequest addressUpdateRequest) {
-    validationUtil.validateRequest(addressUpdateRequest);
-    Address searchedAddress = addressRepository.findById(addressId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "address not found"));
-    addressMapper.addressDtoIntoAddressEntity(searchedAddress, addressUpdateRequest);
-    addressRepository.save(searchedAddress);
+  public void update(AddressUpdateRequest addressUpdateRequest, Address updateAddress) {
+    Address tempAddress = new Address();
+    addressMapper.addressDtoIntoAddressEntity(tempAddress, addressUpdateRequest);
+    if (tempAddress.equals(updateAddress)) {
+      addressRepository.save(updateAddress);
+    }
   }
 
   @Override

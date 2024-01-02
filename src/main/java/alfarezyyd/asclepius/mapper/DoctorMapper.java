@@ -13,5 +13,7 @@ public interface DoctorMapper {
   DoctorResponse doctorEntityIntoDoctorResponse(Doctor doctorEntity);
 
   @Mapping(target = "birthDate", source = "doctorDto.birthDate", qualifiedByName = "stringIntoDateBirthDate")
+  @Mapping(target = "specialities", ignore = true)
+  @Mapping(target = "polyclinics", ignore = true)
   void doctorDtoIntoDoctorEntity(@MappingTarget Doctor doctorEntity, DoctorDto doctorDto);
 }
