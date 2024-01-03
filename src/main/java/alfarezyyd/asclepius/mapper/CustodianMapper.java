@@ -9,7 +9,6 @@ import org.mapstruct.MappingTarget;
 
 @Mapper(uses = {PatientMapper.class, PersonMapper.class})
 public interface CustodianMapper {
-
   @Mapping(target = "patients", ignore = true)
   CustodianResponse custodianEntityIntoCustodianResponse(Custodian custodianEntity);
   CustodianResponse custodianEntityIntoDetailCustodianResponse(Custodian custodianEntity);

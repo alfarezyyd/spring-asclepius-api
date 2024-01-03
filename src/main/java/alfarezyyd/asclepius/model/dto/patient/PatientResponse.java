@@ -3,11 +3,11 @@ package alfarezyyd.asclepius.model.dto.patient;
 import alfarezyyd.asclepius.constraint.ValidDateConstraint;
 import alfarezyyd.asclepius.model.dto.custodian.CustodianResponse;
 import alfarezyyd.asclepius.model.dto.disability.DisabilityResponse;
+import alfarezyyd.asclepius.model.dto.ethnicity.EthnicityResponse;
 import alfarezyyd.asclepius.model.dto.instance.InstanceResponse;
 import alfarezyyd.asclepius.model.dto.insurance.InsuranceResponse;
 import alfarezyyd.asclepius.model.dto.language.LanguageResponse;
 import alfarezyyd.asclepius.model.dto.person.PersonResponse;
-import alfarezyyd.asclepius.model.entity.Ethnicity;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,7 +27,7 @@ public class PatientResponse extends PersonResponse {
   private String job;
   @JsonProperty("employee_code")
   private String employeeCode;
-  private Ethnicity ethnicity;
+  private EthnicityResponse ethnicity;
   private List<DisabilityResponse> disabilities;
   private List<InsuranceResponse> insurances;
   private List<LanguageResponse> languages;

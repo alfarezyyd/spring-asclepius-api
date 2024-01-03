@@ -13,7 +13,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class PatientCreateRequest extends PersonCreateRequest  implements PatientDto{
+public class PatientCreateRequest extends PersonCreateRequest implements PatientDto {
   @JsonProperty("medical_record_code")
   @NotBlank
   @Size(min = 1, max = 128)
@@ -35,8 +35,8 @@ public class PatientCreateRequest extends PersonCreateRequest  implements Patien
   private String employeeCode;
   @NotNull
   private Short ethnicity;
-  private List<@NotNull Short> disabilities;
-  private List<@NotBlank String> insurances;
+  private List<Short> disabilities;
+  private List<String> insurances;
   private List<@NotNull Short> languages;
   private Long custodian;
   @NotBlank

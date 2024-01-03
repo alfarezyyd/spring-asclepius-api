@@ -19,9 +19,6 @@ public class Disability {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Short id;
   private String name;
-  @ManyToMany
-  @JoinTable(name = "patients_disabilities",
-  joinColumns = @JoinColumn(name = "disabilities_id", referencedColumnName = "id"),
-  inverseJoinColumns = @JoinColumn(name = "patient_id", referencedColumnName = "people_id"))
+  @ManyToMany(mappedBy = "disabilities")
   private List<Patient> patients;
 }

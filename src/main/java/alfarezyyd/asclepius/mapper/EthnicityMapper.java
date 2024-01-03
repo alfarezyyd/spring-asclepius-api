@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
-@Mapper(uses = PersonMapper.class)
+@Mapper(uses = {PersonMapper.class, PatientMapper.class})
 public interface EthnicityMapper {
   @Mapping(target = "patients", ignore = true)
   EthnicityResponse ethnicityEntityIntoEthnicityResponse(Ethnicity ethnicityEntity);

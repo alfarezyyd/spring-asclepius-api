@@ -22,9 +22,6 @@ public class Insurance {
   @Column(name = "telephone_number")
   private String telephoneNumber;
   private String representative;
-  @ManyToMany
-  @JoinTable(name = "patients_insurances",
-      joinColumns = @JoinColumn(name = "insurance_code", referencedColumnName = "code"),
-      inverseJoinColumns = @JoinColumn(name = "patient_id", referencedColumnName = "people_id"))
+  @ManyToMany(mappedBy = "insurances")
   private List<Patient> patients;
 }

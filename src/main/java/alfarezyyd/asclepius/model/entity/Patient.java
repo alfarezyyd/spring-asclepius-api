@@ -27,11 +27,20 @@ public class Patient extends Person {
   @ManyToOne
   @JoinColumn(name = "ethnic_id", referencedColumnName = "id")
   private Ethnicity ethnicity;
-  @ManyToMany(mappedBy = "patients")
+  @ManyToMany
+  @JoinTable(name = "patients_disabilities",
+      joinColumns = @JoinColumn(name = "patient_id", referencedColumnName = "people_id"),
+      inverseJoinColumns = @JoinColumn(name = "disability_id", referencedColumnName = "id"))
   private List<Disability> disabilities;
-  @ManyToMany(mappedBy = "patients")
+  @ManyToMany
+  @JoinTable(name = "patients_insurances",
+      joinColumns = @JoinColumn(name = "patient_id", referencedColumnName = "people_id"),
+      inverseJoinColumns = @JoinColumn(name = "insurance_code", referencedColumnName = "code"))
   private List<Insurance> insurances;
-  @ManyToMany(mappedBy = "patients")
+  @ManyToMany
+  @JoinTable(name = "patients_languages",
+      joinColumns = @JoinColumn(name = "patient_id", referencedColumnName = "people_id"),
+      inverseJoinColumns = @JoinColumn(name = "language_id", referencedColumnName = "id"))
   private List<Language> languages;
   @ManyToOne
   @JoinColumn(name = "custodian_id", referencedColumnName = "people_id")

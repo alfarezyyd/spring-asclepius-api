@@ -16,6 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Ethnicity {
   @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Short id;
   private String type;
   private String name;

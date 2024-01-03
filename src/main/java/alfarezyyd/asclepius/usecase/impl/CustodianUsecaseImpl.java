@@ -4,6 +4,7 @@ import alfarezyyd.asclepius.mapper.CustodianMapper;
 import alfarezyyd.asclepius.model.dto.custodian.CustodianCreateRequest;
 import alfarezyyd.asclepius.model.dto.custodian.CustodianResponse;
 import alfarezyyd.asclepius.model.dto.custodian.CustodianUpdateRequest;
+import alfarezyyd.asclepius.model.entity.Address;
 import alfarezyyd.asclepius.model.entity.Custodian;
 import alfarezyyd.asclepius.repository.CustodianRepository;
 import alfarezyyd.asclepius.usecase.AddressUsecase;
@@ -45,6 +46,8 @@ public class CustodianUsecaseImpl implements CustodianUsecase {
     validationUtil.validateRequest(custodianCreateRequest);
     Custodian newCustodian = new Custodian();
     custodianMapper.custodianDtoIntoCustodianEntity(newCustodian, custodianCreateRequest);
+    Address address = addressUsecase.create(custodianCreateRequest.getAddress());
+    newCustodian.setAddress(address);
     custodianRepository.save(newCustodian);
   }
 

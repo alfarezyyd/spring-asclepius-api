@@ -28,8 +28,9 @@ public class PatientUsecaseImpl implements PatientUsecase {
   private final LanguageRepository languageRepository;
   private final EthnicityRepository ethnicityRepository;
   private final InstanceRepository instanceRepository;
+  private final CustodianRepository custodianRepository;
 
-  public PatientUsecaseImpl(PatientRepository patientRepository, AddressUsecase addressUsecase, ValidationUtil validationUtil, PatientMapper patientMapper, DisabilityRepository disabilityRepository, InsuranceRepository insuranceRepository, LanguageRepository languageRepository, EthnicityRepository ethnicityRepository, InstanceRepository instanceRepository) {
+  public PatientUsecaseImpl(PatientRepository patientRepository, AddressUsecase addressUsecase, ValidationUtil validationUtil, PatientMapper patientMapper, DisabilityRepository disabilityRepository, InsuranceRepository insuranceRepository, LanguageRepository languageRepository, EthnicityRepository ethnicityRepository, InstanceRepository instanceRepository, CustodianRepository custodianRepository) {
     this.patientRepository = patientRepository;
     this.addressUsecase = addressUsecase;
     this.validationUtil = validationUtil;
@@ -39,6 +40,7 @@ public class PatientUsecaseImpl implements PatientUsecase {
     this.languageRepository = languageRepository;
     this.ethnicityRepository = ethnicityRepository;
     this.instanceRepository = instanceRepository;
+    this.custodianRepository = custodianRepository;
   }
 
   @Override
@@ -71,6 +73,8 @@ public class PatientUsecaseImpl implements PatientUsecase {
     patient.setEthnicity(ethnicity);
     Instance instance = instanceRepository.findById(patientCreateRequest.getInstance()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "instance not found"));
     patient.setInstance(instance);
+    Custodian custodian = custodianRepository.findById(patientCreateRequest.getCustodian()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "custodian not found"));
+    patient.setCustodian(custodian);
     patientRepository.save(patient);
   }
 
@@ -89,6 +93,9 @@ public class PatientUsecaseImpl implements PatientUsecase {
     searchedPatient.setEthnicity(ethnicity);
     Instance instance = instanceRepository.findById(patientUpdateRequest.getInstance()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "instance not found"));
     searchedPatient.setInstance(instance);
+    Custodian custodian = custodianRepository.findById(patientUpdateRequest.getCustodian()).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "custodian not found"));
+    searchedPatient.setCustodian(custodian);
+    patientMapper.patientDtoIntoPatientEntity(searchedPatient, patientUpdateRequest);
     patientRepository.save(searchedPatient);
 
   }

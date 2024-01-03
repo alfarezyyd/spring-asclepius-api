@@ -142,10 +142,10 @@ CREATE TABLE patients
 CREATE TABLE patients_disabilities
 (
     patient_id      BIGINT UNSIGNED   NOT NULL,
-    disabilities_id SMALLINT UNSIGNED NOT NULL,
-    UNIQUE (patient_id, disabilities_id),
+    disability_id SMALLINT UNSIGNED NOT NULL,
+    UNIQUE (patient_id, disability_id),
     CONSTRAINT fk_patients_disabilities_patients FOREIGN KEY (patient_id) REFERENCES patients (people_id),
-    CONSTRAINT fk_patients_disabilities_disabilities FOREIGN KEY (disabilities_id) REFERENCES disabilities (id)
+    CONSTRAINT fk_patients_disabilities_disabilities FOREIGN KEY (disability_id) REFERENCES disabilities (id)
 );
 
 CREATE TABLE patients_insurances
@@ -184,3 +184,5 @@ SELECT *
 FROM disabilities;
 SELECT *
 FROM instances;
+SELECT * FROM patients_disabilities;
+SELECT * FROM patients;
