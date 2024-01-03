@@ -32,7 +32,7 @@ public class LanguageUsecaseImpl implements LanguageUsecase {
   }
 
   @Override
-  public LanguageResponse findById(Long languageId) {
+  public LanguageResponse findById(Short languageId) {
     Language language = languageRepository.findById(languageId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "language not found"));
     return languageMapper.languageEntityIntoDetailLanguageResponse(language);
   }
@@ -54,7 +54,7 @@ public class LanguageUsecaseImpl implements LanguageUsecase {
   }
 
   @Override
-  public void delete(Long languageId) {
+  public void delete(Short languageId) {
     if (languageRepository.existsById(languageId)) {
       languageRepository.deleteById(languageId);
     }else{

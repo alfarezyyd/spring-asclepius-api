@@ -13,7 +13,11 @@ public interface PatientMapper {
   PatientResponse patientEntityIntoPatientResponse(Patient patientEntity);
 
   @Mapping(target = "birthDate", source = "patientDto.birthDate", qualifiedByName = "stringIntoDateBirthDate")
-  @Mapping(target = "specialities", ignore = true)
-  @Mapping(target = "polyclinics", ignore = true)
+  @Mapping(target = "disabilities", ignore = true)
+  @Mapping(target = "insurances", ignore = true)
+  @Mapping(target = "languages", ignore = true)
+  @Mapping(target = "custodian", ignore = true)
+  @Mapping(target = "instance", ignore = true)
+  @Mapping(target = "ethnicity", ignore = true)
   void patientDtoIntoPatientEntity(@MappingTarget Patient patientEntity, PatientDto patientDto);
 }

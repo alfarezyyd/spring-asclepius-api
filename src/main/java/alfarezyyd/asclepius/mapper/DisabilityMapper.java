@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
-@Mapper(uses = PersonMapper.class)
+@Mapper(uses = PatientMapper.class)
 public interface DisabilityMapper {
   @Mapping(target = "patients", ignore = true)
   DisabilityResponse disabilityEntityIntoDisabilityResponse(Disability disabilityEntity);

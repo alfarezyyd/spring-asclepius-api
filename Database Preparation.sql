@@ -180,3 +180,7 @@ SELECT *
 FROM addresses;
 SELECT *
 FROM doctors;
+SELECT *
+FROM disabilities;
+SELECT *
+FROM instances;

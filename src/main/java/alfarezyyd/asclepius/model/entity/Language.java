@@ -16,7 +16,8 @@ import java.util.List;
 @NoArgsConstructor
 public class Language {
   @Id
-  private Long id;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Short id;
   private String name;
   @ManyToMany
   @JoinTable(name = "patients_languages",

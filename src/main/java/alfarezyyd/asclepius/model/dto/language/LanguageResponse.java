@@ -9,7 +9,7 @@ import java.util.List;
 @Getter
 @Setter
 public class LanguageResponse {
-  private Long id;
+  private Short id;
   private String name;
   private List<PatientResponse> patients;
 }

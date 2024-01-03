@@ -12,7 +12,7 @@ import lombok.Setter;
 public class LanguageUpdateRequest implements LanguageDto {
   @NotNull
   @JsonIgnore
-  private Long id;
+  private Short id;
   @NotBlank
   @Size(min = 1, max = 50)
   private String name;

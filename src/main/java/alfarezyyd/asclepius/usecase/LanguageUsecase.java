@@ -9,11 +9,11 @@ import java.util.List;
 public interface LanguageUsecase {
   List<LanguageResponse> findAll();
 
-  LanguageResponse findById(Long languageId);
+  LanguageResponse findById(Short languageId);
 
   void create(LanguageCreateRequest languageCreateRequest);
 
   void update(LanguageUpdateRequest languageUpdateRequest);
 
-  void delete(Long languageId);
+  void delete(Short languageId);
 }

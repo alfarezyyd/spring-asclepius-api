@@ -45,7 +45,7 @@ public class AddressUsecaseImpl implements AddressUsecase {
   public void update(AddressUpdateRequest addressUpdateRequest, Address updateAddress) {
     Address tempAddress = new Address();
     addressMapper.addressDtoIntoAddressEntity(tempAddress, addressUpdateRequest);
-    if (tempAddress.equals(updateAddress)) {
+    if (!tempAddress.equals(updateAddress)) {
       addressRepository.save(updateAddress);
     }
   }
