@@ -20,7 +20,7 @@ public class Outpatient {
   private String registrationCode;
   private Timestamp registrationDate;
   @OneToOne
-  @JoinColumn(name = "doctor_id", referencedColumnName = "people_id")
+  @JoinColumn(name = "doctor_id", referencedColumnName = "person_id")
   private Doctor doctor;
   @OneToOne
   @JoinColumn(name = "polyclinic_code", referencedColumnName = "code")
@@ -29,6 +29,6 @@ public class Outpatient {
   @JoinColumn(name = "insurance_code", referencedColumnName = "code")
   private Insurance insurance;
   @OneToOne
-  @JoinColumn(name = "patient_id", referencedColumnName = "people_id")
+  @JoinColumn(name = "patient_id", referencedColumnName = "person_id")
   private Patient patient;
 }

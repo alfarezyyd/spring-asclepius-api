@@ -22,11 +22,11 @@ public class Doctor extends Person {
   @ManyToMany
   @JoinTable(name = "doctors_specialities",
       inverseJoinColumns = @JoinColumn(name = "speciality_code", referencedColumnName = "code"),
-      joinColumns = @JoinColumn(name = "doctor_id", referencedColumnName = "people_id"))
+      joinColumns = @JoinColumn(name = "doctor_id", referencedColumnName = "person_id"))
   private List<Speciality> specialities;
   @ManyToMany
   @JoinTable(name = "doctors_polyclinics",
       inverseJoinColumns = @JoinColumn(name = "polyclinic_code", referencedColumnName = "code"),
-      joinColumns = @JoinColumn(name = "doctor_id", referencedColumnName = "people_id"))
+      joinColumns = @JoinColumn(name = "doctor_id", referencedColumnName = "person_id"))
   private List<Polyclinic> polyclinics;
 }

@@ -16,7 +16,7 @@ CREATE TABLE addresses
 
 CREATE TABLE people
 (
-    people_id            BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT                                  NOT NULL,
+    person_id            BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT                                  NOT NULL,
     address_id           BIGINT UNSIGNED UNIQUE                                                      NOT NULL,
     identity_card_number VARCHAR(20) UNIQUE                                                          NOT NULL,
     identity_card_type   ENUM ('IDENTITY_CARD', 'DRIVING_LICENSE')                                   NOT NULL,
@@ -36,20 +36,20 @@ CREATE TABLE people
 
 CREATE TABLE doctors
 (
-    people_id              BIGINT UNSIGNED PRIMARY KEY NOT NULL,
+    person_id              BIGINT UNSIGNED PRIMARY KEY NOT NULL,
     code                   VARCHAR(16) UNIQUE          NOT NULL,
     alumnus                VARCHAR(100)                NOT NULL,
     practice_permit_number VARCHAR(30)                 NOT NULL,
-    CONSTRAINT fk_doctors_people FOREIGN KEY (people_id) REFERENCES people (people_id)
+    CONSTRAINT fk_doctors_people FOREIGN KEY (person_id) REFERENCES people (person_id)
 );
 
 CREATE TABLE polyclinics
 (
-    code            VARCHAR(16) PRIMARY KEY NOT NULL,
-    name            VARCHAR(100)            NOT NULL,
+    code             VARCHAR(16) PRIMARY KEY NOT NULL,
+    name             VARCHAR(100)            NOT NULL,
     registration_fee INT                     NOT NULL,
-    location        VARCHAR(50)             NOT NULL,
-    note            TEXT
+    location         VARCHAR(50)             NOT NULL,
+    note             TEXT
 );
 
 CREATE TABLE specialities
@@ -64,7 +64,7 @@ CREATE TABLE doctors_polyclinics
     doctor_id       BIGINT UNSIGNED NOT NULL,
     polyclinic_code VARCHAR(16)     NOT NULL,
     UNIQUE (doctor_id, polyclinic_code),
-    CONSTRAINT fk_doctors_polyclinics_doctors FOREIGN KEY (doctor_id) REFERENCES doctors (people_id),
+    CONSTRAINT fk_doctors_polyclinics_doctors FOREIGN KEY (doctor_id) REFERENCES doctors (person_id),
     CONSTRAINT fk_doctors_polyclinics_polyclinics FOREIGN KEY (polyclinic_code) REFERENCES polyclinics (code)
 );
 
@@ -73,7 +73,7 @@ CREATE TABLE doctors_specialities
     doctor_id       BIGINT UNSIGNED NOT NULL,
     speciality_code VARCHAR(16)     NOT NULL,
     UNIQUE (doctor_id, speciality_code),
-    CONSTRAINT fk_doctors_specialities_doctors FOREIGN KEY (doctor_id) REFERENCES doctors (people_id),
+    CONSTRAINT fk_doctors_specialities_doctors FOREIGN KEY (doctor_id) REFERENCES doctors (person_id),
     CONSTRAINT fk_doctors_specialities_specialities FOREIGN KEY (speciality_code) REFERENCES specialities (code)
 );
 
@@ -116,15 +116,15 @@ CREATE TABLE instances
 
 CREATE TABLE custodians
 (
-    people_id BIGINT UNSIGNED PRIMARY KEY                                                NOT NULL,
+    person_id BIGINT UNSIGNED PRIMARY KEY                                                NOT NULL,
     relation  ENUM ('FATHER', 'MOTHER','WIFE','HUSBAND','SIBLING','CHILD','SELF','MISC') NOT NULL,
     job       VARCHAR(50)                                                                NOT NULL,
-    CONSTRAINT fk_custodians_people FOREIGN KEY (people_id) REFERENCES people (people_id)
+    CONSTRAINT fk_custodians_people FOREIGN KEY (person_id) REFERENCES people (person_id)
 );
 
 CREATE TABLE patients
 (
-    people_id           BIGINT UNSIGNED PRIMARY KEY NOT NULL,
+    person_id           BIGINT UNSIGNED PRIMARY KEY NOT NULL,
     medical_record_code VARCHAR(128) UNIQUE         NOT NULL,
     ethnic_id           SMALLINT UNSIGNED           NOT NULL,
     custodian_id        BIGINT UNSIGNED             NOT NULL,
@@ -133,8 +133,8 @@ CREATE TABLE patients
     registration_date   DATE                        NOT NULL,
     job                 VARCHAR(50)                 NOT NULL,
     employee_code       VARCHAR(50),
-    CONSTRAINT fk_patients_people FOREIGN KEY (people_id) REFERENCES people (people_id),
-    CONSTRAINT fk_patients_custodians FOREIGN KEY (custodian_id) REFERENCES custodians (people_id),
+    CONSTRAINT fk_patients_people FOREIGN KEY (person_id) REFERENCES people (person_id),
+    CONSTRAINT fk_patients_custodians FOREIGN KEY (custodian_id) REFERENCES custodians (person_id),
     CONSTRAINT fk_patients_instances FOREIGN KEY (instance_code) REFERENCES instances (code),
     CONSTRAINT fk_patients_ethnicities FOREIGN KEY (ethnic_id) REFERENCES ethnicities (id)
 );
@@ -145,7 +145,7 @@ CREATE TABLE patients_disabilities
     patient_id    BIGINT UNSIGNED   NOT NULL,
     disability_id SMALLINT UNSIGNED NOT NULL,
     UNIQUE (patient_id, disability_id),
-    CONSTRAINT fk_patients_disabilities_patients FOREIGN KEY (patient_id) REFERENCES patients (people_id),
+    CONSTRAINT fk_patients_disabilities_patients FOREIGN KEY (patient_id) REFERENCES patients (person_id),
     CONSTRAINT fk_patients_disabilities_disabilities FOREIGN KEY (disability_id) REFERENCES disabilities (id)
 );
 
@@ -154,7 +154,7 @@ CREATE TABLE patients_insurances
     patient_id     BIGINT UNSIGNED NOT NULL,
     insurance_code VARCHAR(16)     NOT NULL,
     UNIQUE (patient_id, insurance_code),
-    CONSTRAINT fk_patients_insurances_patients FOREIGN KEY (patient_id) REFERENCES patients (people_id),
+    CONSTRAINT fk_patients_insurances_patients FOREIGN KEY (patient_id) REFERENCES patients (person_id),
     CONSTRAINT fk_patients_insurances_insurances FOREIGN KEY (insurance_code) REFERENCES insurances (code)
 );
 
@@ -163,7 +163,7 @@ CREATE TABLE patients_languages
     patient_id  BIGINT UNSIGNED   NOT NULL,
     language_id SMALLINT UNSIGNED NOT NULL,
     UNIQUE (patient_id, language_id),
-    CONSTRAINT fk_patients_languages_patients FOREIGN KEY (patient_id) REFERENCES patients (people_id),
+    CONSTRAINT fk_patients_languages_patients FOREIGN KEY (patient_id) REFERENCES patients (person_id),
     CONSTRAINT fk_patients_languages_languages FOREIGN KEY (language_id) REFERENCES languages (id)
 );
 
@@ -175,8 +175,110 @@ CREATE TABLE outpatients
     patient_id        BIGINT UNSIGNED         NOT NULL,
     polyclinic_code   VARCHAR(16)             NOT NULL,
     insurance_code    VARCHAR(16)             NOT NULL,
-    CONSTRAINT fk_outpatients_doctors FOREIGN KEY (doctor_id) REFERENCES doctors (people_id),
-    CONSTRAINT fk_outpatients_patients FOREIGN KEY (patient_id) REFERENCES patients (people_id),
+    CONSTRAINT fk_outpatients_doctors FOREIGN KEY (doctor_id) REFERENCES doctors (person_id),
+    CONSTRAINT fk_outpatients_patients FOREIGN KEY (patient_id) REFERENCES patients (person_id),
     CONSTRAINT fk_outpatients_polyclinics FOREIGN KEY (polyclinic_code) REFERENCES polyclinics (code),
     CONSTRAINT fk_outpatients_insurances FOREIGN KEY (insurance_code) REFERENCES insurances (code)
 );
+
+CREATE TABLE positions
+(
+    code VARCHAR(16) PRIMARY KEY NOT NULL,
+    name VARCHAR(255)            NOT NULL
+);
+
+CREATE TABLE employees
+(
+    person_id     BIGINT UNSIGNED NOT NULL,
+    position_code VARCHAR(16)     NOT NULL,
+    UNIQUE (person_id, position_code),
+    CONSTRAINT fk_employees_people FOREIGN KEY (person_id) REFERENCES people (person_id),
+    CONSTRAINT fk_employees_positions FOREIGN KEY (position_code) REFERENCES positions (code)
+);
+
+
+CREATE TABLE actions_categories
+(
+    id   BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    name VARCHAR(255)                               NOT NULL
+);
+
+CREATE TABLE actions
+(
+    code        VARCHAR(16) PRIMARY KEY     NOT NULL,
+    name        VARCHAR(255)                NOT NULL,
+    performer   ENUM ('DOCTOR', 'EMPLOYEE'),
+    category_id BIGINT UNSIGNED PRIMARY KEY NOT NULL,
+    fee         INT                         NOT NULL,
+    CONSTRAINT fk_actions_categories FOREIGN KEY (category_id) REFERENCES actions_categories (id)
+);
+
+CREATE TABLE examinations
+(
+    id                 BIGINT UNSIGNED PRIMARY KEY                           NOT NULL,
+    registration_code  VARCHAR(18)                                           NOT NULL,
+    subject            VARCHAR(255)                                          NOT NULL,
+    object             VARCHAR(255)                                          NOT NULL,
+    temperature        TINYINT UNSIGNED                                      NOT NULL,
+    tension_diastolic  TINYINT UNSIGNED                                      NOT NULL,
+    tension_systolic   TINYINT UNSIGNED                                      NOT NULL,
+    weight             SMALLINT UNSIGNED                                     NOT NULL,
+    height             SMALLINT UNSIGNED                                     NOT NULL,
+    respiration_rate   SMALLINT UNSIGNED                                     NOT NULL,
+    pulse              SMALLINT UNSIGNED                                     NOT NULL,
+    oxygen_saturation  SMALLINT UNSIGNED                                     NOT NULL,
+    glasgow_coma_scale TINYINT UNSIGNED                                      NOT NULL,
+    consciousness      ENUM ('COMPOS_MENTIS', 'SOMNOLENCE', 'SOPOR', 'COMA') NOT NULL,
+    allergy            VARCHAR(255),
+    assessment         TEXT                                                  NOT NULL,
+    plan               TEXT                                                  NOT NULL,
+    instruction        TEXT                                                  NOT NULL,
+    evaluation         TEXT                                                  NOT NULL,
+    CONSTRAINT fk_examinations_outpatients FOREIGN KEY (registration_code) REFERENCES outpatients (registration_code)
+);
+
+CREATE TABLE examinations_obstetrics
+(
+    examination_id        BIGINT UNSIGNED PRIMARY KEY                NOT NULL,
+    uterine_fundus_height TINYINT UNSIGNED                           NOT NULL,
+    fetus                 ENUM ('-', 'SINGLETON', 'GEMELLI')         NOT NULL,
+    location              VARCHAR(255)                               NOT NULL,
+    contraction           ENUM ('+', '-')                            NOT NULL,
+    quality               SMALLINT UNSIGNED                          NOT NULL,
+    vulva                 VARCHAR(255)                               NOT NULL,
+    portio_inspeculo      VARCHAR(255)                               NOT NULL,
+    pelvis_lower_part     TINYINT                                    NOT NULL,
+    cervical_opening      TEXT                                       NOT NULL,
+    cervical_descent      TEXT                                       NOT NULL,
+    fluxus                ENUM ('+', '-')                            NOT NULL,
+    fluor_albus           ENUM ('+', '-')                            NOT NULL,
+    amniotic_membrane     ENUM ('+', '-')                            NOT NULL,
+    vulva_condition       ENUM ('SPRINGY', 'LENIENT')                NOT NULL,
+    denominator           VARCHAR(255)                               NOT NULL,
+    direction             ENUM ('FRONT', 'AXIAL', 'BACK')            NOT NULL,
+    feto_pelvic_balance   ENUM ('NORMAL', 'SUSP_CPF_FPD', 'CPD_FPD') NOT NULL,
+    CONSTRAINT fk_examinations_obstetrics FOREIGN KEY (examination_id) REFERENCES examinations (id)
+);
+
+CREATE TABLE examinations_gynecologicals
+(
+    examination_id            BIGINT UNSIGNED PRIMARY KEY NOT NULL,
+    inspection                VARCHAR(255)                NOT NULL,
+    vulva                     VARCHAR(255)                NOT NULL,
+    inspeculo                 VARCHAR(255)                NOT NULL,
+    fluxus                    ENUM ('+', '-')             NOT NULL,
+    fluor_albus               ENUM ('+', '-')             NOT NULL,
+    vulva                     VARCHAR(255)                NOT NULL,
+    portio_inspeculo          VARCHAR(255)                NOT NULL,
+    sondage_inspeculo         VARCHAR(255)                NOT NULL,
+    internal_portio_inspeculo VARCHAR(255)                NOT NULL,
+    shape                     VARCHAR(255)                NOT NULL,
+    uterine_cavity            VARCHAR(255)                NOT NULL,
+    mobility                  ENUM ('+', '-')             NOT NULL,
+    size                      VARCHAR(255)                NOT NULL,
+    tenderness                ENUM ('+', '-'),
+    right_adnexa              VARCHAR(255)                NOT NULL,
+    left_adnexa               VARCHAR(255)                NOT NULL,
+    douglas_cavity            VARCHAR(255)                NOT NULL,
+    CONSTRAINT fk_examinations_obstetrics FOREIGN KEY (examination_id) REFERENCES examinations (id)
+)

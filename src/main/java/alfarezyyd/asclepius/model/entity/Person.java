@@ -15,7 +15,7 @@ import java.sql.Date;
 @ToString
 public class Person {
   @Id
-  @Column(name = "people_id")
+  @Column(name = "person_id")
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long personId;
   @Column(name = "identity_card_number")
