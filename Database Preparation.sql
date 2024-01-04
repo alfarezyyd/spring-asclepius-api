@@ -45,10 +45,11 @@ CREATE TABLE doctors
 
 CREATE TABLE polyclinics
 (
-    code     VARCHAR(16) PRIMARY KEY NOT NULL,
-    name     VARCHAR(100)            NOT NULL,
-    location VARCHAR(50)             NOT NULL,
-    note     TEXT
+    code            VARCHAR(16) PRIMARY KEY NOT NULL,
+    name            VARCHAR(100)            NOT NULL,
+    registration_fee INT                     NOT NULL,
+    location        VARCHAR(50)             NOT NULL,
+    note            TEXT
 );
 
 CREATE TABLE specialities
@@ -141,7 +142,7 @@ CREATE TABLE patients
 
 CREATE TABLE patients_disabilities
 (
-    patient_id      BIGINT UNSIGNED   NOT NULL,
+    patient_id    BIGINT UNSIGNED   NOT NULL,
     disability_id SMALLINT UNSIGNED NOT NULL,
     UNIQUE (patient_id, disability_id),
     CONSTRAINT fk_patients_disabilities_patients FOREIGN KEY (patient_id) REFERENCES patients (people_id),
@@ -166,23 +167,16 @@ CREATE TABLE patients_languages
     CONSTRAINT fk_patients_languages_languages FOREIGN KEY (language_id) REFERENCES languages (id)
 );
 
-SELECT *
-FROM polyclinics;
-SELECT *
-FROM doctors_polyclinics;
-SELECT *
-FROM doctors_specialities;
-SELECT *
-FROM specialities;
-SELECT *
-FROM people;
-SELECT *
-FROM addresses;
-SELECT *
-FROM doctors;
-SELECT *
-FROM disabilities;
-SELECT *
-FROM instances;
-SELECT * FROM patients_disabilities;
-SELECT * FROM patients;
+CREATE TABLE outpatients
+(
+    registration_code VARCHAR(18) PRIMARY KEY NOT NULL,
+    registration_date DATETIME                NOT NULL,
+    doctor_id         BIGINT UNSIGNED         NOT NULL,
+    patient_id        BIGINT UNSIGNED         NOT NULL,
+    polyclinic_code   VARCHAR(16)             NOT NULL,
+    insurance_code    VARCHAR(16)             NOT NULL,
+    CONSTRAINT fk_outpatients_doctors FOREIGN KEY (doctor_id) REFERENCES doctors (people_id),
+    CONSTRAINT fk_outpatients_patients FOREIGN KEY (patient_id) REFERENCES patients (people_id),
+    CONSTRAINT fk_outpatients_polyclinics FOREIGN KEY (polyclinic_code) REFERENCES polyclinics (code),
+    CONSTRAINT fk_outpatients_insurances FOREIGN KEY (insurance_code) REFERENCES insurances (code)
+);

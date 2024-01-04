@@ -6,10 +6,12 @@ import alfarezyyd.asclepius.model.entity.Patient;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.Named;
 
 @Mapper(componentModel = "spring", uses = {PersonMapper.class, DisabilityMapper.class, InsuranceMapper.class, LanguageMapper.class, CustodianMapper.class, InstanceMapper.class, EthnicityMapper.class})
 public interface PatientMapper {
 
+  @Named("simplePatientResponse")
   @Mapping(target = "disabilities", ignore = true)
   @Mapping(target = "insurances", ignore = true)
   @Mapping(target = "languages", ignore = true)

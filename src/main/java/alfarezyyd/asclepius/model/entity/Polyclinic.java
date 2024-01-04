@@ -16,9 +16,10 @@ import java.util.List;
 @NoArgsConstructor
 public class Polyclinic {
   @Id
-  @Column
   private String code;
   private String name;
+  @Column(name = "registration_fee")
+  private Integer registrationFee;
   private String location;
   private String note;
   @ManyToMany(mappedBy = "polyclinics")

@@ -6,9 +6,11 @@ import alfarezyyd.asclepius.model.entity.Insurance;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.Named;
 
 @Mapper(uses = PatientMapper.class)
 public interface InsuranceMapper {
+  @Named("simpleInsuranceResponse")
   @Mapping(target = "patients", ignore = true)
   InsuranceResponse insuranceEntityIntoInsuranceResponse(Insurance insuranceEntity);
   InsuranceResponse insuranceEntityIntoDetailInsuranceResponse(Insurance insuranceEntity);

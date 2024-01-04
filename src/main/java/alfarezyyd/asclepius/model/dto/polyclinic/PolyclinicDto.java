@@ -5,6 +5,8 @@ public interface PolyclinicDto {
 
   String getName();
 
+  Integer getRegistrationFee();
+
   String getLocation();
 
   String getNote();
