@@ -1,4 +1,4 @@
-DROP DATABASE spring_asclepius_api;
+DROP DATABASE IF EXISTS spring_asclepius_api;
 CREATE DATABASE spring_asclepius_api;
 USE spring_asclepius_api;
 
@@ -205,11 +205,11 @@ CREATE TABLE actions_categories
 
 CREATE TABLE actions
 (
-    code        VARCHAR(16) PRIMARY KEY     NOT NULL,
-    name        VARCHAR(255)                NOT NULL,
+    code        VARCHAR(16) PRIMARY KEY NOT NULL,
+    name        VARCHAR(255)            NOT NULL,
     performer   ENUM ('DOCTOR', 'EMPLOYEE'),
-    category_id BIGINT UNSIGNED PRIMARY KEY NOT NULL,
-    fee         INT                         NOT NULL,
+    category_id BIGINT UNSIGNED         NOT NULL,
+    fee         INT                     NOT NULL,
     CONSTRAINT fk_actions_categories FOREIGN KEY (category_id) REFERENCES actions_categories (id)
 );
 
@@ -234,6 +234,7 @@ CREATE TABLE examinations
     plan               TEXT                                                  NOT NULL,
     instruction        TEXT                                                  NOT NULL,
     evaluation         TEXT                                                  NOT NULL,
+    note               TEXT,
     CONSTRAINT fk_examinations_outpatients FOREIGN KEY (registration_code) REFERENCES outpatients (registration_code)
 );
 
@@ -268,7 +269,6 @@ CREATE TABLE examinations_gynecologicals
     inspeculo                 VARCHAR(255)                NOT NULL,
     fluxus                    ENUM ('+', '-')             NOT NULL,
     fluor_albus               ENUM ('+', '-')             NOT NULL,
-    vulva                     VARCHAR(255)                NOT NULL,
     portio_inspeculo          VARCHAR(255)                NOT NULL,
     sondage_inspeculo         VARCHAR(255)                NOT NULL,
     internal_portio_inspeculo VARCHAR(255)                NOT NULL,
@@ -280,5 +280,88 @@ CREATE TABLE examinations_gynecologicals
     right_adnexa              VARCHAR(255)                NOT NULL,
     left_adnexa               VARCHAR(255)                NOT NULL,
     douglas_cavity            VARCHAR(255)                NOT NULL,
-    CONSTRAINT fk_examinations_obstetrics FOREIGN KEY (examination_id) REFERENCES examinations (id)
-)
+    CONSTRAINT fk_examinations_gynecologicals FOREIGN KEY (examination_id) REFERENCES examinations (id)
+);
+
+CREATE TABLE diseases_categories
+(
+    id   INT UNSIGNED PRIMARY KEY NOT NULL,
+    name VARCHAR(255) UNIQUE      NOT NULL
+);
+
+CREATE TABLE diseases
+(
+    code              VARCHAR(10) PRIMARY KEY               NOT NULL,
+    name              VARCHAR(255)                          NOT NULL,
+    description       TEXT                                  NOT NULL,
+    category_id       INT UNSIGNED                          NOT NULL,
+    complication      TEXT                                  NOT NULL,
+    indication        TEXT,
+    risk_prognosis    ENUM ('LOW', 'MODERATE', 'HIGH')      NOT NULL,
+    contagious_status ENUM ('CONTAGIOUS', 'NOT_CONTAGIOUS') NOT NULL,
+    symptom           TEXT                                  NOT NULL,
+    CONSTRAINT fk_diseases_categories FOREIGN KEY (category_id) REFERENCES diseases_categories (id)
+);
+
+CREATE TABLE procedures
+(
+    code                VARCHAR(16) PRIMARY KEY NOT NULL,
+    name                VARCHAR(255)            NOT NULL,
+    description         TEXT                    NOT NULL,
+    patient_preparation TEXT                    NOT NULL,
+    procedure_action    TEXT                    NOT NULL,
+    patient_recovery    TEXT                    NOT NULL,
+    duration            TIME                    NOT NULL
+);
+
+CREATE TABLE diseases_procedures
+(
+    disease_code   VARCHAR(10) NOT NULL,
+    procedure_code VARCHAR(16) NOT NULL,
+    UNIQUE (disease_code, procedure_code),
+    CONSTRAINT fk_diseases_procedures_diseases FOREIGN KEY (disease_code) REFERENCES diseases (code),
+    CONSTRAINT fk_diseases_procedures_procedures FOREIGN KEY (procedure_code) REFERENCES procedures (code)
+);
+
+CREATE TABLE medicines_dosages_forms
+(
+    id          INT UNSIGNED PRIMARY KEY NOT NULL,
+    name        VARCHAR(255) UNIQUE      NOT NULL,
+    description TEXT                     NOT NULL
+);
+
+CREATE TABLE medicines_pharmacological_categories
+(
+    id          INT UNSIGNED PRIMARY KEY NOT NULL,
+    name        VARCHAR(255)             NOT NULL,
+    description TEXT                     NOT NULL
+);
+
+CREATE TABLE pharmaceuticals_industries
+(
+    id          INT UNSIGNED PRIMARY KEY NOT NULL,
+    name        VARCHAR(255)             NOT NULL,
+    description TEXT                     NOT NULL
+);
+
+CREATE TABLE medicines
+(
+    code                       VARCHAR(16) PRIMARY KEY NOT NULL,
+    name                       VARCHAR(255)            NOT NULL,
+    unit                       VARCHAR(50)             NOT NULL,
+    price                      INT UNSIGNED            NOT NULL,
+    batch                      VARCHAR(50)             NOT NULL,
+    pharmaceutical_industry_id INT UNSIGNED            NOT NULL,
+    expired_date               DATE                    NOT NULL,
+    stock                      INT UNSIGNED            NOT NULL,
+    CONSTRAINT fk_medicines_pharmaceuticals_industries FOREIGN KEY (pharmaceutical_industry_id) REFERENCES pharmaceuticals_industries (id)
+);
+
+CREATE TABLE outpatients_medicines
+(
+    medicine_code                VARCHAR(16) NOT NULL,
+    outpatient_registration_code VARCHAR(18) NOT NULL,
+    UNIQUE (medicine_code, outpatient_registration_code),
+    CONSTRAINT fk_outpatients_medicines_medicines FOREIGN KEY (medicine_code) REFERENCES medicines (code),
+    CONSTRAINT fk_outpatients_medicines_outpatients FOREIGN KEY (outpatient_registration_code) REFERENCES outpatients (registration_code)
+);
