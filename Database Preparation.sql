@@ -189,9 +189,8 @@ CREATE TABLE positions
 
 CREATE TABLE employees
 (
-    person_id     BIGINT UNSIGNED NOT NULL,
-    position_code VARCHAR(16)     NOT NULL,
-    UNIQUE (person_id, position_code),
+    person_id     BIGINT UNSIGNED PRIMARY KEY NOT NULL,
+    position_code VARCHAR(16)                 NOT NULL,
     CONSTRAINT fk_employees_people FOREIGN KEY (person_id) REFERENCES people (person_id),
     CONSTRAINT fk_employees_positions FOREIGN KEY (position_code) REFERENCES positions (code)
 );

@@ -26,12 +26,6 @@ public class AddressUsecaseImpl implements AddressUsecase {
   }
 
   @Override
-  public AddressResponse findById(Long addressId) {
-    Address addressEntity = addressRepository.findById(addressId).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Address not found"));
-    return addressMapper.addressEntityIntoAddressResponse(addressEntity);
-  }
-
-  @Override
   @Transactional
   public Address create(AddressCreateRequest addressCreateRequest) {
     validationUtil.validateRequest(addressCreateRequest);
