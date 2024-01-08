@@ -2,7 +2,6 @@ package alfarezyyd.asclepius.usecase.impl;
 
 import alfarezyyd.asclepius.mapper.AddressMapper;
 import alfarezyyd.asclepius.model.dto.address.AddressCreateRequest;
-import alfarezyyd.asclepius.model.dto.address.AddressResponse;
 import alfarezyyd.asclepius.model.dto.address.AddressUpdateRequest;
 import alfarezyyd.asclepius.model.entity.Address;
 import alfarezyyd.asclepius.repository.AddressRepository;

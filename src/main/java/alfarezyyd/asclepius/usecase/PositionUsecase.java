@@ -3,7 +3,6 @@ package alfarezyyd.asclepius.usecase;
 import alfarezyyd.asclepius.model.dto.position.PositionCreateRequest;
 import alfarezyyd.asclepius.model.dto.position.PositionResponse;
 import alfarezyyd.asclepius.model.dto.position.PositionUpdateRequest;
-import alfarezyyd.asclepius.model.entity.Position;
 
 import java.util.List;
 
