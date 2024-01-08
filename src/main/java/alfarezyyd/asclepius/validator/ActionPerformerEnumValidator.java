@@ -1,11 +1,11 @@
 package alfarezyyd.asclepius.validator;
 
 import alfarezyyd.asclepius.constraint.EthnicityEnumConstraint;
-import alfarezyyd.asclepius.model.option.EthnicityType;
+import alfarezyyd.asclepius.model.option.ActionPerformer;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 
-public class EthnicityValidator implements ConstraintValidator<EthnicityEnumConstraint, String> {
+public class ActionPerformerEnumValidator implements ConstraintValidator<EthnicityEnumConstraint, String> {
   @Override
   public boolean isValid(String value, ConstraintValidatorContext context) {
     // skip validation if null
@@ -13,7 +13,7 @@ public class EthnicityValidator implements ConstraintValidator<EthnicityEnumCons
       return true;
     }
     try {
-      EthnicityType.valueOf(value);
+      ActionPerformer.valueOf(value);
       return true;
     } catch (IllegalArgumentException e) {
       return false;

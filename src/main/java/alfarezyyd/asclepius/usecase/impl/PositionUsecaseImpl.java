@@ -28,7 +28,7 @@ public class PositionUsecaseImpl implements PositionUsecase {
 
   @Override
   public List<PositionResponse> findAll() {
-    return positionRepository.findAll().stream().map(position -> positionMapper.positionEntityIntoPositionResponse(position)).toList();
+    return positionRepository.findAll().stream().map(positionMapper::positionEntityIntoPositionResponse).toList();
   }
 
   @Override

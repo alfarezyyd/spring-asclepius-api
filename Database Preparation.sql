@@ -198,17 +198,16 @@ CREATE TABLE employees
 
 CREATE TABLE actions_categories
 (
-    id   BIGINT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    name VARCHAR(255)                               NOT NULL
+    id   INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    name VARCHAR(255)                            NOT NULL
 );
 
 CREATE TABLE actions
 (
     code        VARCHAR(16) PRIMARY KEY NOT NULL,
     name        VARCHAR(255)            NOT NULL,
-    performer   ENUM ('DOCTOR', 'EMPLOYEE'),
     category_id BIGINT UNSIGNED         NOT NULL,
-    fee         INT                     NOT NULL,
+    fee         INT UNSIGNED            NOT NULL,
     CONSTRAINT fk_actions_categories FOREIGN KEY (category_id) REFERENCES actions_categories (id)
 );
 
