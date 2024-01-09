@@ -4,7 +4,6 @@ import alfarezyyd.asclepius.model.option.FluorAlbus;
 import alfarezyyd.asclepius.model.option.Fluxus;
 import alfarezyyd.asclepius.model.option.Mobility;
 import alfarezyyd.asclepius.model.option.Tenderness;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

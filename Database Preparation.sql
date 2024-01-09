@@ -309,8 +309,9 @@ CREATE TABLE procedures
     patient_preparation TEXT                    NOT NULL,
     procedure_action    TEXT                    NOT NULL,
     patient_recovery    TEXT                    NOT NULL,
-    duration            TIME                    NOT NULL
+    duration            INT UNSIGNED            NOT NULL
 );
+
 
 CREATE TABLE diseases_procedures
 (
@@ -335,7 +336,7 @@ CREATE TABLE medicines_pharmacological_categories
     description TEXT                     NOT NULL
 );
 
-CREATE TABLE pharmaceuticals_industries
+CREATE TABLE medicines_suppliers
 (
     id          INT UNSIGNED PRIMARY KEY NOT NULL,
     name        VARCHAR(255)             NOT NULL,
@@ -347,14 +348,14 @@ CREATE TABLE medicines
     code                        VARCHAR(16) PRIMARY KEY NOT NULL,
     dosage_form_id              INT UNSIGNED            NOT NULL,
     pharmacological_category_id INT UNSIGNED            NOT NULL,
-    pharmaceutical_industry_id  INT UNSIGNED            NOT NULL,
+    supplier_id                 INT UNSIGNED            NOT NULL,
     name                        VARCHAR(255)            NOT NULL,
     unit                        VARCHAR(50)             NOT NULL,
     price                       INT UNSIGNED            NOT NULL,
     batch                       VARCHAR(50)             NOT NULL,
     expired_date                DATE                    NOT NULL,
     stock                       INT UNSIGNED            NOT NULL,
-    CONSTRAINT fk_medicines_pharmaceuticals_industries FOREIGN KEY (pharmaceutical_industry_id) REFERENCES pharmaceuticals_industries (id),
+    CONSTRAINT fk_medicines_suppliers FOREIGN KEY (supplier_id) REFERENCES medicines_suppliers (id),
     CONSTRAINT fk_medicines_dosages_forms FOREIGN KEY (dosage_form_id) REFERENCES medicines_dosage_forms (id),
     CONSTRAINT fk_medicines_pharmacological_categories FOREIGN KEY (pharmacological_category_id) REFERENCES medicines_pharmacological_categories (id)
 );

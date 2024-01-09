@@ -10,17 +10,17 @@ import lombok.Setter;
 import java.util.List;
 
 @Entity
-@Table(name = "pharmaceuticals_industries")
+@Table(name = "medicines_suppliers")
 @Getter
 @Setter
 @EqualsAndHashCode
 @NoArgsConstructor
-public class PharmaceuticalIndustry {
+public class Supplier {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
   private String name;
   private String description;
-  @OneToMany(mappedBy = "pharmaceuticalIndustry")
+  @OneToMany(mappedBy = "supplier")
   private List<Medicine> medicines;
 }

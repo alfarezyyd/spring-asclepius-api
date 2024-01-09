@@ -1,7 +1,6 @@
 package alfarezyyd.asclepius.model.entity;
 
 import alfarezyyd.asclepius.model.embeddable.OutpatientActionPK;
-import alfarezyyd.asclepius.model.embeddable.OutpatientMedicinePK;
 import alfarezyyd.asclepius.model.option.ActionPerformer;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;

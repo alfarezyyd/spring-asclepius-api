@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.sql.Time;
 import java.util.List;
 
 @Entity
@@ -20,10 +19,13 @@ public class Procedure {
   private String code;
   private String name;
   private String description;
+  @Column(name = "patient_preparation")
   private String patientPreparation;
+  @Column(name = "procedure_action")
   private String procedureAction;
+  @Column(name = "patient_recovery")
   private String patientRecovery;
-  private Time duration;
+  private Integer duration;
   @ManyToMany
   @JoinTable(name = "diseases_procedures",
       joinColumns = @JoinColumn(name = "procedure_code", referencedColumnName = "code"),

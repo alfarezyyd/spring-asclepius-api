@@ -32,8 +32,8 @@ public class Medicine {
   @JoinColumn(name = "dosage_form_id", referencedColumnName = "id")
   private MedicineDosageForm medicineDosageForm;
   @ManyToOne
-  @JoinColumn(name = "pharmaceutical_industry_id", referencedColumnName = "id")
-  private PharmaceuticalIndustry pharmaceuticalIndustry;
+  @JoinColumn(name = "supplier_id", referencedColumnName = "id")
+  private Supplier supplier;
   @OneToMany(mappedBy = "medicine")
   private List<OutpatientMedicine> outpatientMedicines;
 }
