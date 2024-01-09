@@ -206,7 +206,7 @@ CREATE TABLE actions
 (
     code        VARCHAR(16) PRIMARY KEY NOT NULL,
     name        VARCHAR(255)            NOT NULL,
-    category_id BIGINT UNSIGNED         NOT NULL,
+    category_id INT UNSIGNED            NOT NULL,
     fee         INT UNSIGNED            NOT NULL,
     CONSTRAINT fk_actions_categories FOREIGN KEY (category_id) REFERENCES actions_categories (id)
 );
@@ -240,18 +240,18 @@ CREATE TABLE examinations_obstetrics
 (
     examination_id        BIGINT UNSIGNED PRIMARY KEY                NOT NULL,
     uterine_fundus_height TINYINT UNSIGNED                           NOT NULL,
-    fetus                 ENUM ('-', 'SINGLETON', 'GEMELLI')         NOT NULL,
+    fetus                 ENUM ('NOT_EXIST', 'SINGLETON', 'GEMELLI') NOT NULL,
     location              VARCHAR(255)                               NOT NULL,
-    contraction           ENUM ('+', '-')                            NOT NULL,
+    contraction           ENUM ('POSITIVE', 'NEGATIVE')              NOT NULL,
     quality               SMALLINT UNSIGNED                          NOT NULL,
     vulva                 VARCHAR(255)                               NOT NULL,
     portio_inspeculo      VARCHAR(255)                               NOT NULL,
     pelvis_lower_part     TINYINT                                    NOT NULL,
     cervical_opening      TEXT                                       NOT NULL,
     cervical_descent      TEXT                                       NOT NULL,
-    fluxus                ENUM ('+', '-')                            NOT NULL,
-    fluor_albus           ENUM ('+', '-')                            NOT NULL,
-    amniotic_membrane     ENUM ('+', '-')                            NOT NULL,
+    fluxus                ENUM ('POSITIVE', 'NEGATIVE')              NOT NULL,
+    fluor_albus           ENUM ('POSITIVE', 'NEGATIVE')              NOT NULL,
+    amniotic_membrane     ENUM ('POSITIVE', 'NEGATIVE')              NOT NULL,
     vulva_condition       ENUM ('SPRINGY', 'LENIENT')                NOT NULL,
     denominator           VARCHAR(255)                               NOT NULL,
     direction             ENUM ('FRONT', 'AXIAL', 'BACK')            NOT NULL,
@@ -261,30 +261,30 @@ CREATE TABLE examinations_obstetrics
 
 CREATE TABLE examinations_gynecologicals
 (
-    examination_id            BIGINT UNSIGNED PRIMARY KEY NOT NULL,
-    inspection                VARCHAR(255)                NOT NULL,
-    vulva                     VARCHAR(255)                NOT NULL,
-    inspeculo                 VARCHAR(255)                NOT NULL,
-    fluxus                    ENUM ('+', '-')             NOT NULL,
-    fluor_albus               ENUM ('+', '-')             NOT NULL,
-    portio_inspeculo          VARCHAR(255)                NOT NULL,
-    sondage_inspeculo         VARCHAR(255)                NOT NULL,
-    internal_portio_inspeculo VARCHAR(255)                NOT NULL,
-    shape                     VARCHAR(255)                NOT NULL,
-    uterine_cavity            VARCHAR(255)                NOT NULL,
-    mobility                  ENUM ('+', '-')             NOT NULL,
-    size                      VARCHAR(255)                NOT NULL,
-    tenderness                ENUM ('+', '-'),
-    right_adnexa              VARCHAR(255)                NOT NULL,
-    left_adnexa               VARCHAR(255)                NOT NULL,
-    douglas_cavity            VARCHAR(255)                NOT NULL,
+    examination_id            BIGINT UNSIGNED PRIMARY KEY   NOT NULL,
+    inspection                VARCHAR(255)                  NOT NULL,
+    vulva                     VARCHAR(255)                  NOT NULL,
+    inspeculo                 VARCHAR(255)                  NOT NULL,
+    fluxus                    ENUM ('POSITIVE', 'NEGATIVE') NOT NULL,
+    fluor_albus               ENUM ('POSITIVE', 'NEGATIVE') NOT NULL,
+    portio_inspeculo          VARCHAR(255)                  NOT NULL,
+    sondage_inspeculo         VARCHAR(255)                  NOT NULL,
+    internal_portio_inspeculo VARCHAR(255)                  NOT NULL,
+    shape                     VARCHAR(255)                  NOT NULL,
+    uterine_cavity            VARCHAR(255)                  NOT NULL,
+    mobility                  ENUM ('POSITIVE', 'NEGATIVE') NOT NULL,
+    size                      VARCHAR(255)                  NOT NULL,
+    tenderness                ENUM ('POSITIVE', 'NEGATIVE'),
+    right_adnexa              VARCHAR(255)                  NOT NULL,
+    left_adnexa               VARCHAR(255)                  NOT NULL,
+    douglas_cavity            VARCHAR(255)                  NOT NULL,
     CONSTRAINT fk_examinations_gynecologicals FOREIGN KEY (examination_id) REFERENCES examinations (id)
 );
 
 CREATE TABLE diseases_categories
 (
-    id   INT UNSIGNED PRIMARY KEY NOT NULL,
-    name VARCHAR(255) UNIQUE      NOT NULL
+    id   INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    name VARCHAR(255) UNIQUE                     NOT NULL
 );
 
 CREATE TABLE diseases
@@ -321,7 +321,7 @@ CREATE TABLE diseases_procedures
     CONSTRAINT fk_diseases_procedures_procedures FOREIGN KEY (procedure_code) REFERENCES procedures (code)
 );
 
-CREATE TABLE medicines_dosages_forms
+CREATE TABLE medicines_dosage_forms
 (
     id          INT UNSIGNED PRIMARY KEY NOT NULL,
     name        VARCHAR(255) UNIQUE      NOT NULL,
@@ -344,22 +344,27 @@ CREATE TABLE pharmaceuticals_industries
 
 CREATE TABLE medicines
 (
-    code                       VARCHAR(16) PRIMARY KEY NOT NULL,
-    name                       VARCHAR(255)            NOT NULL,
-    unit                       VARCHAR(50)             NOT NULL,
-    price                      INT UNSIGNED            NOT NULL,
-    batch                      VARCHAR(50)             NOT NULL,
-    pharmaceutical_industry_id INT UNSIGNED            NOT NULL,
-    expired_date               DATE                    NOT NULL,
-    stock                      INT UNSIGNED            NOT NULL,
-    CONSTRAINT fk_medicines_pharmaceuticals_industries FOREIGN KEY (pharmaceutical_industry_id) REFERENCES pharmaceuticals_industries (id)
+    code                        VARCHAR(16) PRIMARY KEY NOT NULL,
+    dosage_form_id              INT UNSIGNED            NOT NULL,
+    pharmacological_category_id INT UNSIGNED            NOT NULL,
+    pharmaceutical_industry_id  INT UNSIGNED            NOT NULL,
+    name                        VARCHAR(255)            NOT NULL,
+    unit                        VARCHAR(50)             NOT NULL,
+    price                       INT UNSIGNED            NOT NULL,
+    batch                       VARCHAR(50)             NOT NULL,
+    expired_date                DATE                    NOT NULL,
+    stock                       INT UNSIGNED            NOT NULL,
+    CONSTRAINT fk_medicines_pharmaceuticals_industries FOREIGN KEY (pharmaceutical_industry_id) REFERENCES pharmaceuticals_industries (id),
+    CONSTRAINT fk_medicines_dosages_forms FOREIGN KEY (dosage_form_id) REFERENCES medicines_dosage_forms (id),
+    CONSTRAINT fk_medicines_pharmacological_categories FOREIGN KEY (pharmacological_category_id) REFERENCES medicines_pharmacological_categories (id)
 );
 
 CREATE TABLE outpatients_medicines
 (
-    medicine_code                VARCHAR(16) NOT NULL,
-    outpatient_registration_code VARCHAR(18) NOT NULL,
-    UNIQUE (medicine_code, outpatient_registration_code),
+    medicine_code     VARCHAR(16) NOT NULL,
+    registration_code VARCHAR(18) NOT NULL,
+    quantity          SMALLINT    NOT NULL,
+    UNIQUE (medicine_code, registration_code),
     CONSTRAINT fk_outpatients_medicines_medicines FOREIGN KEY (medicine_code) REFERENCES medicines (code),
-    CONSTRAINT fk_outpatients_medicines_outpatients FOREIGN KEY (outpatient_registration_code) REFERENCES outpatients (registration_code)
+    CONSTRAINT fk_outpatients_medicines_outpatients FOREIGN KEY (registration_code) REFERENCES outpatients (registration_code)
 );

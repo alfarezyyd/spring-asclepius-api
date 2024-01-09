@@ -31,4 +31,6 @@ public class Outpatient {
   @OneToOne
   @JoinColumn(name = "patient_id", referencedColumnName = "person_id")
   private Patient patient;
+  @OneToOne(mappedBy = "outpatient")
+  private Examination examination;
 }
