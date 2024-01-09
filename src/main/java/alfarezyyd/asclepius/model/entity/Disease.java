@@ -26,6 +26,6 @@ public class Disease {
   @Column(name = "contagious_status")
   private String contagiousStatus;
   private String symptom;
-  @ManyToMany(mappedBy = "disease")
+  @ManyToMany(mappedBy = "diseases")
   private List<Procedure> procedures;
 }

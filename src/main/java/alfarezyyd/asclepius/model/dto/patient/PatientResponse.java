@@ -1,6 +1,5 @@
 package alfarezyyd.asclepius.model.dto.patient;
 
-import alfarezyyd.asclepius.constraint.ValidDateConstraint;
 import alfarezyyd.asclepius.model.dto.custodian.CustodianResponse;
 import alfarezyyd.asclepius.model.dto.disability.DisabilityResponse;
 import alfarezyyd.asclepius.model.dto.ethnicity.EthnicityResponse;
@@ -12,6 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.Date;
 import java.util.List;
 
 @Getter
@@ -22,8 +22,7 @@ public class PatientResponse extends PersonResponse {
   @JsonProperty("mother_name")
   private String motherName;
   @JsonProperty("registration_date")
-  @ValidDateConstraint
-  private String registrationDate;
+  private Date registrationDate;
   private String job;
   @JsonProperty("employee_code")
   private String employeeCode;

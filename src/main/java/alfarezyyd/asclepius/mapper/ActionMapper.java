@@ -6,9 +6,11 @@ import alfarezyyd.asclepius.model.entity.Action;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
+import org.mapstruct.Named;
 
 @Mapper
 public interface ActionMapper {
+  @Named("simpleActionResponse")
   @Mapping(target = "category", ignore = true)
   ActionResponse actionEntityIntoActionResponse(Action actionEntity);
 

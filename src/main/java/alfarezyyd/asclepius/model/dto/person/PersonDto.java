@@ -1,32 +1,35 @@
 package alfarezyyd.asclepius.model.dto.person;
 
 import alfarezyyd.asclepius.model.dto.address.AddressDto;
+import alfarezyyd.asclepius.model.option.*;
+
+import java.sql.Date;
 
 public interface PersonDto {
 
   String getIdentityCardNumber();
 
-  String getIdentityCardType();
+  IdentityCardType getIdentityCardType();
 
   String getFullName();
 
   String getEmail();
 
-  String getGender();
+  Gender getGender();
 
-  String getReligion();
+  Religion getReligion();
 
-  String getBloodType();
+  BloodType getBloodType();
 
   String getBirthPlace();
 
-  String getBirthDate();
+  Date getBirthDate();
 
   Byte getAge();
 
-  String getMaritalStatus();
+  MaritalStatus getMaritalStatus();
 
-  String getLastEducation();
+  LastEducation getLastEducation();
 
   String getTelephoneNumber();
 

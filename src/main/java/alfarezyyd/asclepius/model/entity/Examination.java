@@ -39,7 +39,7 @@ public class Examination {
   private String instruction;
   private String evaluation;
   private String note;
-  @OneToOne(mappedBy = "examination")
+  @OneToOne
   @JoinColumn(name = "registration_code", referencedColumnName = "registration_code")
   private Outpatient outpatient;
   @OneToOne(mappedBy = "examination")

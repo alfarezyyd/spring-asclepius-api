@@ -7,12 +7,13 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
-@Mapper
+@Mapper(uses = ActionMapper.class)
 public interface ActionCategoryMapper {
 
   @Mapping(target = "actions", ignore = true)
   ActionCategoryResponse actionCategoryEntityIntoActionCategoryResponse(ActionCategory actionCategoryEntity);
 
+  @Mapping(target = "actions", qualifiedByName = "simpleActionResponse")
   ActionCategoryResponse actionCategoryEntityIntoDetailActionCategoryResponse(ActionCategory actionCategoryEntity);
 
   @Mapping(target = "actions", ignore = true)

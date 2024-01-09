@@ -1,6 +1,5 @@
 package alfarezyyd.asclepius.model.dto.patient;
 
-import alfarezyyd.asclepius.constraint.ValidDateConstraint;
 import alfarezyyd.asclepius.model.dto.person.PersonCreateRequest;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
@@ -9,6 +8,7 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.Date;
 import java.util.List;
 
 @Getter
@@ -24,8 +24,7 @@ public class PatientCreateRequest extends PersonCreateRequest implements Patient
   private String motherName;
   @JsonProperty("registration_date")
   @NotBlank
-  @ValidDateConstraint
-  private String registrationDate;
+  private Date registrationDate;
   @NotBlank
   @Size(min = 1, max = 50)
   private String job;

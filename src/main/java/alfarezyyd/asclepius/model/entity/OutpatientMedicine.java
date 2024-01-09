@@ -13,13 +13,14 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode
 @NoArgsConstructor
-@IdClass(OutpatientMedicinePK.class)
 public class OutpatientMedicine {
-  @Id
+  @EmbeddedId
+  private OutpatientMedicinePK outpatientMedicinePK;
+  @MapsId("medicineCode")
   @ManyToOne
   @JoinColumn(name = "medicine_code", referencedColumnName = "code")
   private Medicine medicines;
-  @Id
+  @MapsId("registrationCode")
   @ManyToOne
   @JoinColumn(name = "registration_code", referencedColumnName = "registration_code")
   private Outpatient registrationCode;

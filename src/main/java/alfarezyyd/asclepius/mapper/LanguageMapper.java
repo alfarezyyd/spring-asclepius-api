@@ -11,6 +11,7 @@ import org.mapstruct.MappingTarget;
 public interface LanguageMapper {
   @Mapping(target = "patients", ignore = true)
   LanguageResponse languageEntityIntoLanguageResponse(Language languageEntity);
+  @Mapping(target = "patients", qualifiedByName = "simplePatientResponse")
   LanguageResponse languageEntityIntoDetailLanguageResponse(Language languageEntity);
   void languageDtoIntoLanguageEntity(@MappingTarget Language languageEntity, LanguageDto languageDto);
 }

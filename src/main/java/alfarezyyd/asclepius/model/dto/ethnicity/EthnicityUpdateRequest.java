@@ -1,6 +1,6 @@
 package alfarezyyd.asclepius.model.dto.ethnicity;
 
-import alfarezyyd.asclepius.constraint.EthnicityEnumConstraint;
+import alfarezyyd.asclepius.model.option.EthnicityType;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,8 +11,7 @@ public class EthnicityUpdateRequest implements EthnicityDto{
   @NotNull
   private Short id;
   @NotBlank
-  @EthnicityEnumConstraint
-  private String type;
+  private EthnicityType type;
   @NotBlank
   @Size(min = 1, max = 50)
   private String name;

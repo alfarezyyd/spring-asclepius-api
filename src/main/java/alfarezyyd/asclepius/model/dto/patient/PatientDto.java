@@ -2,6 +2,7 @@ package alfarezyyd.asclepius.model.dto.patient;
 
 import alfarezyyd.asclepius.model.dto.person.PersonDto;
 
+import java.sql.Date;
 import java.util.List;
 
 public interface PatientDto extends PersonDto {
@@ -10,7 +11,7 @@ public interface PatientDto extends PersonDto {
 
   String getMotherName();
 
-  String getRegistrationDate();
+  Date getRegistrationDate();
 
   String getJob();
 

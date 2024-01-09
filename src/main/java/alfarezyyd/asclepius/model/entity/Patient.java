@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.sql.Date;
 import java.util.List;
 
 @Entity
@@ -20,7 +21,7 @@ public class Patient extends Person {
   @Column(name = "mother_name")
   private String motherName;
   @Column(name = "registration_date")
-  private String registrationDate;
+  private Date registrationDate;
   private String job;
   @Column(name = "employee_code")
   private String employeeCode;

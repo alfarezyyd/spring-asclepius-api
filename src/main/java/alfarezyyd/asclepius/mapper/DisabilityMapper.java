@@ -11,6 +11,7 @@ import org.mapstruct.MappingTarget;
 public interface DisabilityMapper {
   @Mapping(target = "patients", ignore = true)
   DisabilityResponse disabilityEntityIntoDisabilityResponse(Disability disabilityEntity);
+  @Mapping(target = "patients", qualifiedByName = "simplePatientResponse")
   DisabilityResponse disabilityEntityIntoDetailDisabilityResponse(Disability disabilityEntity);
   void disabilityDtoIntoDisabilityEntity(@MappingTarget Disability disabilityEntity, DisabilityDto disabilityDto);
 }

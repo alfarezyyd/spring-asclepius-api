@@ -11,8 +11,8 @@ import org.mapstruct.MappingTarget;
 public interface CustodianMapper {
   @Mapping(target = "patients", ignore = true)
   CustodianResponse custodianEntityIntoCustodianResponse(Custodian custodianEntity);
+  @Mapping(target = "patients", qualifiedByName = "simplePatientResponse")
   CustodianResponse custodianEntityIntoDetailCustodianResponse(Custodian custodianEntity);
-  @Mapping(target = "birthDate", source = "custodianDto.birthDate", qualifiedByName = "stringIntoDateBirthDate")
   void custodianDtoIntoCustodianEntity(@MappingTarget Custodian custodianEntity, CustodianDto custodianDto);
 
 }

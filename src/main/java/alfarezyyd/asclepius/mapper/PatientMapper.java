@@ -20,7 +20,6 @@ public interface PatientMapper {
   @Mapping(target = "ethnicity", ignore = true)
   PatientResponse patientEntityIntoPatientResponse(Patient patientEntity);
 
-  @Mapping(target = "birthDate", source = "patientDto.birthDate", qualifiedByName = "stringIntoDateBirthDate")
   @Mapping(target = "disabilities", ignore = true)
   @Mapping(target = "insurances", ignore = true)
   @Mapping(target = "languages", ignore = true)

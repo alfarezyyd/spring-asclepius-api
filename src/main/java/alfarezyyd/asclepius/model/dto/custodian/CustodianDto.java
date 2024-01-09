@@ -1,9 +1,10 @@
 package alfarezyyd.asclepius.model.dto.custodian;
 
 import alfarezyyd.asclepius.model.dto.person.PersonDto;
+import alfarezyyd.asclepius.model.option.Relation;
 
 public interface CustodianDto extends PersonDto {
-  String getRelation();
+  Relation getRelation();
 
   String getJob();
 }

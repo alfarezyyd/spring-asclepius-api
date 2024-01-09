@@ -17,7 +17,9 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 public class Outpatient {
   @Id
+  @Column(name = "registration_code")
   private String registrationCode;
+  @Column(name = "registration_date")
   private Timestamp registrationDate;
   @OneToOne
   @JoinColumn(name = "doctor_id", referencedColumnName = "person_id")

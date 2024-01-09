@@ -11,6 +11,7 @@ import org.mapstruct.MappingTarget;
 public interface EthnicityMapper {
   @Mapping(target = "patients", ignore = true)
   EthnicityResponse ethnicityEntityIntoEthnicityResponse(Ethnicity ethnicityEntity);
+  @Mapping(target = "patients", qualifiedByName = "simplePatientResponse")
   EthnicityResponse ethnicityEntityIntoDetailEthnicityResponse(Ethnicity ethnicityEntity);
   void ethnicityDtoIntoEthnicityEntity(@MappingTarget Ethnicity ethnicityEntity, EthnicityDto ethnicityDto);
 }

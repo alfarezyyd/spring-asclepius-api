@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.Date;
+
 @Getter
 @Setter
 public class PersonResponse {
@@ -24,7 +26,7 @@ public class PersonResponse {
   @JsonProperty("birth_place")
   private String birthPlace;
   @JsonProperty("birth_date")
-  private String birthDate;
+  private Date birthDate;
   private Byte age;
   @JsonProperty("marital_status")
   private String maritalStatus;
