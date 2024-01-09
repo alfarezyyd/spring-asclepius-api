@@ -46,4 +46,6 @@ public class Examination {
   private Outpatient outpatient;
   @OneToOne(mappedBy = "examination")
   private ExaminationObstetric examinationObstetric;
+  @OneToOne(mappedBy = "examination")
+  private ExaminationGynecological examinationGynecological;
 }

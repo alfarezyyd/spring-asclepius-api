@@ -1,6 +1,7 @@
 package alfarezyyd.asclepius.model.dto.examination;
 
 import alfarezyyd.asclepius.model.option.Consciousness;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -10,7 +11,10 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class ExaminationCreateRequest implements ExaminationDto {
+public class ExaminationUpdateRequest implements ExaminationDto {
+  @JsonIgnore
+  @NotNull
+  private Long id;
   @NotBlank
   @Size(min = 1, max = 255)
   private String subject;

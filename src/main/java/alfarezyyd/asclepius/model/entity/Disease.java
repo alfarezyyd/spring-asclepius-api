@@ -30,6 +30,9 @@ public class Disease {
   @Enumerated(EnumType.STRING)
   private ContagiousStatus contagiousStatus;
   private String symptom;
+  @ManyToOne
+  @JoinColumn(name = "category_id", referencedColumnName = "id")
+  private DiseaseCategory diseaseCategory;
   @ManyToMany(mappedBy = "diseases")
   private List<Procedure> procedures;
 }
