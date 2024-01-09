@@ -1,5 +1,6 @@
 package alfarezyyd.asclepius.model.entity;
 
+import alfarezyyd.asclepius.model.option.*;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -18,9 +19,11 @@ public class ExaminationObstetric {
   private Long examinationId;
   @Column(name = "uterine_fundus_height")
   private Byte uterineFundusHeight;
-  private String fetus;
+  @Enumerated(EnumType.STRING)
+  private Fetus fetus;
   private String location;
-  private String contraction;
+  @Enumerated(EnumType.STRING)
+  private Contraction contraction;
   private Short quality;
   private String vulva;
   @Column(name = "portio_inspeculo")
@@ -31,17 +34,23 @@ public class ExaminationObstetric {
   private String cervicalOpening;
   @Column(name = "cervical_descent")
   private String cervicalDescent;
-  private String fluxus;
+  @Enumerated(EnumType.STRING)
+  private Fluxus fluxus;
   @Column(name = "fluor_albus")
-  private String fluorAlbus;
+  @Enumerated(EnumType.STRING)
+  private FluorAlbus fluorAlbus;
   @Column(name = "amniotic_membrane")
-  private String amnioticMembrane;
+  @Enumerated(EnumType.STRING)
+  private AmnioticMembrane amnioticMembrane;
   @Column(name = "vulva_condition")
-  private String vulvaCondition;
+  @Enumerated(EnumType.STRING)
+  private VulvaCondition vulvaCondition;
   private String denominator;
-  private String direction;
+  @Enumerated(EnumType.STRING)
+  private Direction direction;
   @Column(name = "feto_pelvic_balance")
-  private String fetoPelvicBalance;
+  @Enumerated(EnumType.STRING)
+  private FetoPelvicBalance fetoPelvicBalance;
   @OneToOne
   @PrimaryKeyJoinColumn(name = "examination_id", referencedColumnName = "id")
   private Examination examination;

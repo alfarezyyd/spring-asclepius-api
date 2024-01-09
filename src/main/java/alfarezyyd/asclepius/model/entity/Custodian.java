@@ -1,9 +1,8 @@
 package alfarezyyd.asclepius.model.entity;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import alfarezyyd.asclepius.model.option.Relation;
+import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +17,8 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 public class Custodian extends Person {
-  private String relation;
+  @Enumerated(EnumType.STRING)
+  private Relation relation;
   private String job;
   @OneToMany(mappedBy = "custodian")
   private List<Patient> patients;

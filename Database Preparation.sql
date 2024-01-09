@@ -368,3 +368,13 @@ CREATE TABLE outpatients_medicines
     CONSTRAINT fk_outpatients_medicines_medicines FOREIGN KEY (medicine_code) REFERENCES medicines (code),
     CONSTRAINT fk_outpatients_medicines_outpatients FOREIGN KEY (registration_code) REFERENCES outpatients (registration_code)
 );
+
+CREATE TABLE outpatients_actions
+(
+    action_code       VARCHAR(16) PRIMARY KEY NOT NULL,
+    registration_code VARCHAR(18)             NOT NULL,
+    action_performer  ENUM ('DOCTOR', 'EMPLOYEE'),
+    UNIQUE (action_code, registration_code),
+    CONSTRAINT fk_outpatients_actions_outpatients FOREIGN KEY (registration_code) REFERENCES outpatients (registration_code),
+    CONSTRAINT fk_outpatients_actions_actions FOREIGN KEY (action_code) REFERENCES actions (code)
+);

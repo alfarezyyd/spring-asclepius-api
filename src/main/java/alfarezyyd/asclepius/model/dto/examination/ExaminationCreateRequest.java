@@ -1,5 +1,6 @@
 package alfarezyyd.asclepius.model.dto.examination;
 
+import alfarezyyd.asclepius.model.option.Consciousness;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -40,7 +41,7 @@ public class ExaminationCreateRequest {
   @NotNull
   private Byte glasgowComaScale;
   @NotNull
-  private String consciousness;
+  private Consciousness consciousness;
   private String allergy;
   private String assessment;
   private String plan;

@@ -1,5 +1,6 @@
 package alfarezyyd.asclepius.model.entity;
 
+import alfarezyyd.asclepius.model.option.Consciousness;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -32,7 +33,8 @@ public class Examination {
   private Short oxygenSaturation;
   @Column(name = "glasgow_coma_scale")
   private Byte glasgowComaScale;
-  private String consciousness;
+  @Enumerated(EnumType.STRING)
+  private Consciousness consciousness;
   private String allergy;
   private String assessment;
   private String plan;

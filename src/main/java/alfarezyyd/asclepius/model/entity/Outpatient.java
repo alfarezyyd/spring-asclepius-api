@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @Table(name = "outpatients")
@@ -35,4 +36,6 @@ public class Outpatient {
   private Patient patient;
   @OneToOne(mappedBy = "outpatient")
   private Examination examination;
+  @OneToMany(mappedBy = "outpatient")
+  private List<OutpatientMedicine> outpatientMedicines;
 }

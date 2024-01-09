@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "medicines")
@@ -33,4 +34,6 @@ public class Medicine {
   @ManyToOne
   @JoinColumn(name = "pharmaceutical_industry_id", referencedColumnName = "id")
   private PharmaceuticalIndustry pharmaceuticalIndustry;
+  @OneToMany(mappedBy = "medicine")
+  private List<OutpatientMedicine> outpatientMedicines;
 }

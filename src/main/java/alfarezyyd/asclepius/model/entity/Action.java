@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table(name = "actions")
 @Getter
@@ -20,4 +22,6 @@ public class Action {
   @ManyToOne
   @JoinColumn(name = "category_id", referencedColumnName = "id")
   private ActionCategory category;
+  @OneToMany(mappedBy = "action")
+  private List<OutpatientAction> outpatientActions;
 }

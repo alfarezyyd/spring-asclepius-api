@@ -1,5 +1,9 @@
 package alfarezyyd.asclepius.model.entity;
 
+import alfarezyyd.asclepius.model.option.FluorAlbus;
+import alfarezyyd.asclepius.model.option.Fluxus;
+import alfarezyyd.asclepius.model.option.Mobility;
+import alfarezyyd.asclepius.model.option.Tenderness;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -19,9 +23,11 @@ public class ExaminationGynecological {
   private String inspection;
   private String vulva;
   private String inspeculo;
-  private String fluxus;
+  @Enumerated(EnumType.STRING)
+  private Fluxus fluxus;
   @Column(name = "fluor_albus")
-  private String fluorAlbus;
+  @Enumerated(EnumType.STRING)
+  private FluorAlbus fluorAlbus;
   @Column(name = "portio_inspeculo")
   private String portioInspeculo;
   @Column(name = "sondage_inspeculo")
@@ -31,9 +37,11 @@ public class ExaminationGynecological {
   private String shape;
   @Column(name = "uterine_cavity")
   private String uterineCavity;
-  private String mobility;
+  @Enumerated(EnumType.STRING)
+  private Mobility mobility;
   private String size;
-  private String tenderness;
+  @Enumerated(EnumType.STRING)
+  private Tenderness tenderness;
   @Column(name = "right_adnexa")
   private String rightAdnexa;
   @Column(name = "left_adnexa")

@@ -1,5 +1,7 @@
 package alfarezyyd.asclepius.model.entity;
 
+import alfarezyyd.asclepius.model.option.ContagiousStatus;
+import alfarezyyd.asclepius.model.option.RiskPrognosis;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -22,9 +24,11 @@ public class Disease {
   private String complication;
   private String indication;
   @Column(name = "risk_prognosis")
-  private String riskPrognosis;
+  @Enumerated(EnumType.STRING)
+  private RiskPrognosis riskPrognosis;
   @Column(name = "contagious_status")
-  private String contagiousStatus;
+  @Enumerated(EnumType.STRING)
+  private ContagiousStatus contagiousStatus;
   private String symptom;
   @ManyToMany(mappedBy = "diseases")
   private List<Procedure> procedures;

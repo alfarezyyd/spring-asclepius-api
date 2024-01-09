@@ -1,6 +1,8 @@
 package alfarezyyd.asclepius.model.entity;
 
+import alfarezyyd.asclepius.model.embeddable.OutpatientActionPK;
 import alfarezyyd.asclepius.model.embeddable.OutpatientMedicinePK;
+import alfarezyyd.asclepius.model.option.ActionPerformer;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -8,21 +10,23 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "outpatients_medicines")
+@Table(name = "outpatients_actions")
 @Getter
 @Setter
 @EqualsAndHashCode
 @NoArgsConstructor
-public class OutpatientMedicine {
+public class OutpatientAction {
   @EmbeddedId
-  private OutpatientMedicinePK outpatientMedicinePK;
+  private OutpatientActionPK outpatientActionPK;
   @MapsId("medicineCode")
   @ManyToOne
-  @JoinColumn(name = "medicine_code", referencedColumnName = "code")
-  private Medicine medicine;
+  @JoinColumn(name = "action_code", referencedColumnName = "code")
+  private Action action;
   @MapsId("registrationCode")
   @ManyToOne
   @JoinColumn(name = "registration_code", referencedColumnName = "registration_code")
   private Outpatient outpatient;
-  private Short quantity;
+  @Enumerated(EnumType.STRING)
+  @Column(name = "action_performer")
+  private ActionPerformer actionPerformer;
 }

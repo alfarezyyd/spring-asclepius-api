@@ -1,5 +1,6 @@
 package alfarezyyd.asclepius.model.entity;
 
+import alfarezyyd.asclepius.model.option.*;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,14 +22,18 @@ public class Person {
   @Column(name = "identity_card_number")
   private String identityCardNumber;
   @Column(name = "identity_card_type")
-  private String identityCardType;
+  @Enumerated(EnumType.STRING)
+  private IdentityCardType identityCardType;
   @Column(name = "full_name")
   private String fullName;
   private String email;
-  private String gender;
-  private String religion;
+  @Enumerated(EnumType.STRING)
+  private Gender gender;
+  @Enumerated(EnumType.STRING)
+  private Religion religion;
   @Column(name = "blood_type")
-  private String bloodType;
+  @Enumerated(EnumType.STRING)
+  private BloodType bloodType;
   @Column(name = "birth_place")
   private String birthPlace;
   @Column(name = "birth_date")
@@ -36,9 +41,11 @@ public class Person {
   @Column(name = "age")
   private Byte age;
   @Column(name = "marital_status")
-  private String maritalStatus;
+  @Enumerated(EnumType.STRING)
+  private MaritalStatus maritalStatus;
   @Column(name = "last_education")
-  private String lastEducation;
+  @Enumerated(EnumType.STRING)
+  private LastEducation lastEducation;
   @Column(name = "telephone_number")
   private String telephoneNumber;
   @OneToOne(fetch = FetchType.LAZY)
